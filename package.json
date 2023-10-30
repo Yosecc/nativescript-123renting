@@ -8,6 +8,7 @@
     "nativescript-vue": "~2.9.0"
   },
   "devDependencies": {
+    "@nativescript/ios": "8.6.1",
     "@nativescript/preview-cli": "^1.0.5",
     "@nativescript/stackblitz": "0.0.8",
     "@nativescript/tailwind": "^2.0.1",
