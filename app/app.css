@@ -1,14 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 ActionBar {
-    background-color: #E74117;
+    /* background-color: #E74117; */
     color: white;
 }
 
-.card{
+.card {
     border-radius: 16;
-    box-shadow: 1 1 1 rgba(0,0,0,.5);
-    background:#EEEEEE;
+    box-shadow: 2 2 3 rgba(0, 0, 0, .3);
+    background: #E0E0E0;
+}
+
+.title,
+label {
+    color: #212121;
+}
+
+.coverImage {
+    background-image: url('~/assets/circle.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.ns-dark .coverImage {
+    background-color: #101010;
+}
+
+.ns-dark .card {
+    background: #212121;
+    color: white;
+}
+
+.ns-dark .title,
+.ns-dark label {
+    color: white;
 }
