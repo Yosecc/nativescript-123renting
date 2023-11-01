@@ -3,7 +3,9 @@
     <GridLayout rows="auto,*" class="coverImage">
 
       <GridLayout row="0" padding="10">
-        <Image src="~/assets/logoh.png" width="100" paddingTop="10" />
+        <!-- <Label :text="isDark" /> -->
+        <Image src="res://logo_white" v-if="isDark" width="100" paddingTop="10" />
+        <Image src="res://logo_black" v-else width="100" paddingTop="10" />
       </GridLayout>
 
       <GridLayout row="1" rows="auto,auto,*,auto,auto" padding="0 10">
@@ -21,46 +23,42 @@
         <!--  -->
         <StackLayout row="1" padding="10 5 5 5">
           <StackLayout class="card" padding="20" background="#E74117" >
-            <label textAlignment="center" color="white" fontWeight="900" fontSize="20" text="INICIA TU RESERVA" />
+            <label textAlignment="center" color="white" fontWeight="900" @tap="logMessage" fontSize="20" text="INICIA TU RESERVA" />
           </StackLayout>
         </StackLayout>
         <!--  -->
         <WrapLayout row="2" >
           <StackLayout width="50%" height="50%" padding="5">
-            <FlexboxLayout  class="card"  padding="10"  background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
-              <Image src="~/assets/flota.png" marginBottom="10" height="40" width="40" row="0" />
-              <label textAlignment="center" text="Flota" fontSize="15%" fontWeight="400" textWrap />
+
+            <FlexboxLayout  class="card"  background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
+              <Image src="res://car" marginBottom="10" height="40" width="40" row="0" />
+              <label textAlignment="center" text="Flota" fontSize="20" fontWeight="400" textWrap />
             </FlexboxLayout>
           </StackLayout>
           <StackLayout width="50%" height="50%" padding="5">
-            <FlexboxLayout class="card"  padding="10"  background=""  width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
-              <Image src="~/assets/officice.png" marginBottom="10" height="40" width="40" row="0" />
-              <label textAlignment="center" text="Oficina" fontSize="15%" fontWeight="400" textWrap />
+            <FlexboxLayout class="card"  background=""  width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
+              <Image src="res://edificio" marginBottom="10" height="40" width="40" row="0" />
+              <label textAlignment="center" text="Oficina" fontSize="20" fontWeight="400" textWrap />
             </FlexboxLayout>
           </StackLayout>
           <StackLayout width="50%" height="50%" padding="5">
-            <FlexboxLayout  class="card" padding="10"  background=""  width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
-              <Image src="~/assets/order icon.png" marginBottom="10" height="40" width="40" row="0" />
-              <label textAlignment="center" text="Mis reservas" fontSize="15%" fontWeight="400" textWrap />
+            <FlexboxLayout  class="card" background=""  width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
+              <Image src="res://reserve" marginBottom="10" height="40" width="40" row="0" />
+              <label textAlignment="center" text="Mis reservas" fontSize="20" fontWeight="400" textWrap />
             </FlexboxLayout>
           </StackLayout>
           <StackLayout width="50%" height="50%" padding="5">
-            <FlexboxLayout class="card"  padding="10"  background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
-              <Image src="~/assets/iconamoon_profile-fill.png" marginBottom="10" height="40" width="40" row="0" />
-              <label textAlignment="center" text="Perfil" fontSize="15%" fontWeight="400" textWrap />
+            <FlexboxLayout class="card"  background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
+              <Image src="res://person" marginBottom="10" height="40" width="40" row="0" />
+              <label textAlignment="center" text="Perfil" fontSize="20" fontWeight="400" textWrap />
+
             </FlexboxLayout>
           </StackLayout>
         </WrapLayout>
         <!--  -->
         <StackLayout row="3" padding="5 5 5 5" background="">
-          <GridLayout row="3" columns="*,*" class="card" background="" padding="20" height="100%" >
-            <FlexboxLayout col="0"  justifyContent="center" alignItems="center" width="100%" >
-              <Image src="~/assets/ban.png" width="150" row="0"  />
-            </FlexboxLayout>
-            <FlexboxLayout col="1"  flexDirection="column" justifyContent="center" alignItems="center" width="100%"  >
-                <Label text="Necesitas una" textAlignment="center" fontSize="18" fontWeight="900" padding="0" margin="5 0 0 0" width="100%" />
-                <Label text="FURGO?" color="#E74117" textAlignment="center" fontSize="30" fontWeight="900" padding="0" margin="0" width="100%" />
-            </FlexboxLayout>
+          <GridLayout row="3" columns="*" class="card" background="" padding="0" height="100%" >
+            <Image src="~/assets/furgo.png" width="100%" row="0" borderRadius="20" stretch="aspectFit" />
           </GridLayout>
         </StackLayout>
         <!--  -->
@@ -75,19 +73,19 @@
               justifyContent="center" 
               alignItems="center" 
             >
-              <Image src="~/assets/phone.png" marginBottom="10" height="25" width="25" row="0" />
+              <Image src="res://phone" marginBottom="10" height="25" width="25" row="0" />
               <label textAlignment="center" text="Contacto" fontSize="12" fontWeight="200" textWrap />
             </FlexboxLayout>
           </FlexboxLayout>
           <FlexboxLayout padding="5" width="33.33%" col="1">
             <FlexboxLayout padding="19" class="card" background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
-              <Image src="~/assets/credit.png" marginBottom="10" height="25" width="25" row="0" />
+              <Image src="res://card" marginBottom="10" height="25" width="25" row="0" />
               <label textAlignment="center" text="Metodo de pago" fontSize="12" fontWeight="200" textWrap />
             </FlexboxLayout>
           </FlexboxLayout>
           <FlexboxLayout padding="5" width="33.33%" col="2">
             <FlexboxLayout padding="19" class="card" background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
-              <Image src="~/assets/inte.png" marginBottom="10" height="25" width="25" row="0" />
+              <Image src="res://interrogative" marginBottom="10" height="25" width="25" row="0" />
               <label textAlignment="center" text="Preguntas Frecuentes" fontSize="12" fontWeight="200" textWrap />
             </FlexboxLayout>
           </FlexboxLayout>
@@ -100,17 +98,31 @@
 
 <script lang="ts">
   import Vue from "nativescript-vue";
-
+  
+  // import { android as androidApp, ios as iosApp } from "@nativescript/core/application";
+  import { Application, Color, Utils } from '@nativescript/core'
+  import { } from '@nativescript/core/ui/'
+  import { device } from "@nativescript/core/platform";
+  // import Theme from "@nativescript/theme";
+  // import android from "@nativescript/android/framework/";
+  
   export default Vue.extend({
     computed: {
       message() {
         return "Blank {N}-Vue app";
+      },
+      isDark(){
+        // console.log( Application.systemAppearance())
+        return Application.systemAppearance() === 'dark'
       }
     },
+    mounted(){
 
+    },
     methods: {
       logMessage() {
-        console.log('You have tapped the message!')
+        console.log()
+
       }
     }
   });

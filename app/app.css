@@ -7,9 +7,13 @@ ActionBar {
 }
 
 .card {
-    border-radius: 16;
+    border-radius: 20;
     box-shadow: 2 2 3 rgba(0, 0, 0, .3);
     background: #E0E0E0;
+}
+
+.card Image {
+    border-radius: 16;
 }
 
 .title,
