@@ -27,27 +27,27 @@
         <!--  -->
         <WrapLayout row="2" >
           <StackLayout width="50%" height="50%" padding="5">
-            <FlexboxLayout  class="card"  background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
+            <FlexboxLayout  class="card"  padding="10"  background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
               <Image src="~/assets/flota.png" marginBottom="10" height="40" width="40" row="0" />
-              <label textAlignment="center" text="Flota" fontSize="20" fontWeight="400" textWrap />
+              <label textAlignment="center" text="Flota" fontSize="15%" fontWeight="400" textWrap />
             </FlexboxLayout>
           </StackLayout>
           <StackLayout width="50%" height="50%" padding="5">
-            <FlexboxLayout class="card"  background=""  width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
+            <FlexboxLayout class="card"  padding="10"  background=""  width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
               <Image src="~/assets/officice.png" marginBottom="10" height="40" width="40" row="0" />
-              <label textAlignment="center" text="Oficina" fontSize="20" fontWeight="400" textWrap />
+              <label textAlignment="center" text="Oficina" fontSize="15%" fontWeight="400" textWrap />
             </FlexboxLayout>
           </StackLayout>
           <StackLayout width="50%" height="50%" padding="5">
-            <FlexboxLayout  class="card" background=""  width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
+            <FlexboxLayout  class="card" padding="10"  background=""  width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
               <Image src="~/assets/order icon.png" marginBottom="10" height="40" width="40" row="0" />
-              <label textAlignment="center" text="Mis reservas" fontSize="20" fontWeight="400" textWrap />
+              <label textAlignment="center" text="Mis reservas" fontSize="15%" fontWeight="400" textWrap />
             </FlexboxLayout>
           </StackLayout>
           <StackLayout width="50%" height="50%" padding="5">
-            <FlexboxLayout class="card"  background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
+            <FlexboxLayout class="card"  padding="10"  background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
               <Image src="~/assets/iconamoon_profile-fill.png" marginBottom="10" height="40" width="40" row="0" />
-              <label textAlignment="center" text="Perfil" fontSize="20" fontWeight="400" textWrap />
+              <label textAlignment="center" text="Perfil" fontSize="15%" fontWeight="400" textWrap />
             </FlexboxLayout>
           </StackLayout>
         </WrapLayout>
@@ -65,7 +65,7 @@
         </StackLayout>
         <!--  -->
         <FlexboxLayout width="100%" row="4" columns="*,*,*" padding="0 0 10 0">
-          <FlexboxLayout padding="5" col="0">
+          <FlexboxLayout padding="5" width="33.33%" col="0">
             <FlexboxLayout 
               padding="19" 
               width="100%" 
@@ -79,13 +79,13 @@
               <label textAlignment="center" text="Contacto" fontSize="12" fontWeight="200" textWrap />
             </FlexboxLayout>
           </FlexboxLayout>
-          <FlexboxLayout padding="5" col="1">
+          <FlexboxLayout padding="5" width="33.33%" col="1">
             <FlexboxLayout padding="19" class="card" background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
               <Image src="~/assets/credit.png" marginBottom="10" height="25" width="25" row="0" />
               <label textAlignment="center" text="Metodo de pago" fontSize="12" fontWeight="200" textWrap />
             </FlexboxLayout>
           </FlexboxLayout>
-          <FlexboxLayout padding="5" col="2">
+          <FlexboxLayout padding="5" width="33.33%" col="2">
             <FlexboxLayout padding="19" class="card" background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
               <Image src="~/assets/inte.png" marginBottom="10" height="25" width="25" row="0" />
               <label textAlignment="center" text="Preguntas Frecuentes" fontSize="12" fontWeight="200" textWrap />
@@ -93,7 +93,7 @@
           </FlexboxLayout>
         </FlexboxLayout>
       </GridLayout>
-      
+
     </GridLayout>
   </Page>
 </template>
