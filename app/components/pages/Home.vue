@@ -1,5 +1,5 @@
 <template>
-  <Page actionBarHidden="true" >
+  <Page name="home" ref="home" id="home" actionBarHidden="true" >
     <GridLayout rows="auto,*" v-if="Object.entries(homeView).length" class="coverImage">
 
       <GridLayout row="0" padding="10">
@@ -122,7 +122,7 @@
   import Vue from "nativescript-vue";
   import { Application, Color, Utils } from '@nativescript/core'
   import { home } from '~/data/home'
-  
+
   export default Vue.extend({
     data(){
       return{
@@ -141,13 +141,14 @@
       this.homeView = home
     },
     mounted(){
-      console.log(this.homeView)
+      // console.log(this.homeView)
 
     },
     methods: {
       logMessage() {
-        console.log(this.homeView)
-
+        this.$navigator.navigate('/reserva/oficinas' )
+        // console.log(this.homeView)
+        // this.$navigateTo('reserva');
       }
     }
   });
