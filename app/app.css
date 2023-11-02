@@ -40,3 +40,14 @@ label {
 .ns-dark label {
     color: white;
 }
+
+timepickerfield,
+datepickerfield {
+    font-size: 20;
+    font-weight: bold;
+    padding: 20;
+    border-radius: 20;
+    box-shadow: 2 2 3 rgba(0, 0, 0, .3);
+    background: #E0E0E0;
+    margin-bottom: 30;
+}

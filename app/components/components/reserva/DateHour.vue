@@ -1,12 +1,9 @@
 <template>
-    <StackLayout>
+    <StackLayout padding="10">
 
-        <DatePickerField hint="select date"></DatePickerField>
-        <TimePickerField hint="select time"></TimePickerField>
-        <DateTimePickerFields
-        hintDate="select date"
-        hintTime="select time"
-        ></DateTimePickerFields>
+        <DatePickerField hint="Seleccionar fecha"></DatePickerField>
+        <TimePickerField hint="Seleccionar hora"></TimePickerField>
+       
     </StackLayout>
   </template>
   

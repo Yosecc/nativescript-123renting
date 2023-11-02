@@ -5,16 +5,7 @@
       @buttonAction="onButtonAction"
     >
       <Label row="0" marginLeft="10" marginBottom="10" text="Selecciona fecha y hora donde deseas recoger tu coche." />  
-      <!-- <DateHour row="1"  /> -->
-      <StackLayout>
-
-<DatePickerField hint="select date"></DatePickerField>
-<TimePickerField hint="select time"></TimePickerField>
-<DateTimePickerFields
-hintDate="select date"
-hintTime="select time"
-></DateTimePickerFields>
-</StackLayout>
+      <DateHour row="1"  />
     </layoutPage>
   </template>
     
