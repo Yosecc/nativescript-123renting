@@ -17,7 +17,7 @@
 
             <slot />
           
-          <StackLayout row="2" padding="10 10 20 10" >
+          <StackLayout row="2" padding="10 10 20 10" v-if="view_button" >
             <StackLayout class="card" padding="15 20" @tap="onAction" background="#E74117" >
               <label 
                 textAlignment="center"
@@ -50,6 +50,10 @@
             buttonname:{
                 type: String,
                 default: ''
+            },
+            view_button:{
+              type: Boolean,
+              default: true
             }
         },
       data(){

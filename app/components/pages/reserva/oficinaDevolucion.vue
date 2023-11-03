@@ -1,11 +1,11 @@
 <template>
     <layoutPage 
-      :title="'Elige fecha y hora de recogida '"
+      :title="'Elige tu oficina de devolución'"
       :buttonname="'CONTINUAR'"
       @buttonAction="onButtonAction"
     >
-      <Label row="0" marginLeft="10" marginBottom="10" text="Selecciona fecha y hora donde deseas recoger tu coche." />  
-      <DateHour row="1"  />
+      <Label row="0" marginLeft="10" marginBottom="10" text="Selecciona la oficina donde deseas hacer la devolución."  textWrap es./>  
+      <Oficinas row="1" :name="'oficina_devolucion'" :data="oficinasData" v-model="oficina_id" />
     </layoutPage>
   </template>
     
@@ -15,7 +15,7 @@
       import { oficinas } from '~/data/oficinas'
       import { reserva } from '~/data/reserva'
   
-      import DateHour from '~/components/components/reserva/DateHour.vue'
+      import Oficinas from '~/components/components/reserva/Oficinas.vue'
       import layoutPage from "~/components/pages/reserva/layoutPage.vue";
   
       export default Vue.extend({
@@ -27,11 +27,11 @@
         },
         watch:{
           oficina_id(to){
-            reserva.oficina_id = to
+            reserva.devolucion.oficina_id = to
           }
         },
         components:{
-            DateHour,
+          Oficinas,
           layoutPage
         },
         computed: {
@@ -54,7 +54,8 @@
             this.$navigator.back()
           },
           onButtonAction(){
-            alert('continuar')
+            this.$navigator.navigate('/reserva/date_devolucion' )
+  
           }
         }
       });

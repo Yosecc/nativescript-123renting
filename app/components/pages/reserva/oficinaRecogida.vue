@@ -4,8 +4,8 @@
     :buttonname="'CONTINUAR'"
     @buttonAction="onButtonAction"
   >
-    <Label row="0" marginLeft="10" marginBottom="10" text="Selecciona la oficina donde deseas recoger tu coche." />  
-    <Oficinas row="1" :name="'oficina'" :data="oficinasData" v-model="oficina_id" />
+    <Label row="0" marginLeft="10" marginBottom="10" text="Selecciona la oficina donde deseas recoger tu coche."  textWrap es./>  
+    <Oficinas row="1" :name="'oficina_recogida'" :data="oficinasData" v-model="oficina_id" />
   </layoutPage>
 </template>
   
@@ -27,7 +27,7 @@
       },
       watch:{
         oficina_id(to){
-          reserva.oficina_id = to
+          reserva.recogida.oficina_id = to
         }
       },
       components:{
@@ -54,7 +54,7 @@
           this.$navigator.back()
         },
         onButtonAction(){
-          this.$navigator.navigate('/reserva/datehour' )
+          this.$navigator.navigate('/reserva/date_recogida' )
 
         }
       }

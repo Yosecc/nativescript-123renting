@@ -146,7 +146,7 @@
     },
     methods: {
       logMessage() {
-        this.$navigator.navigate('/reserva/oficinas' )
+        this.$navigator.navigate('/reserva/oficina_recogida' )
         // console.log(this.homeView)
         // this.$navigateTo('reserva');
       }
