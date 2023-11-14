@@ -1,7 +1,7 @@
 import { NativeScriptConfig } from '@nativescript/core';
 
 export default {
-  id: 'es.123renting.app',
+  id: 'org.nativescript.app',
   appPath: 'app',
   appResourcesPath: 'App_Resources',
   android: {
