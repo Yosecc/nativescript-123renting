@@ -9,7 +9,9 @@
       <Label row="0" marginLeft="10" marginBottom="10" text="Revisa los detalles de tu reserva." textWrap />  
     
         <GridLayout row="1" rows="auto, *">
-            <CardDetalleTable :plan="plan" :items="items" />
+            <CardDetalleTable :plan="plan" :items="items" row="0" />
+            <Mejoras :plan="plan"  row="1" />
+
         </GridLayout>
 
     </layoutPage>
@@ -22,6 +24,7 @@
       import { planes } from '~/data/planes'
       import { oficinas } from '~/data/oficinas'
       import CardDetalleTable from '~/components/components/reserva/CardDetalleTable.vue'
+      import Mejoras from '~/components/components/reserva/Mejoras.vue'
       import CardOficinaSelect from '~/components/components/reserva/CardOficinaSelect.vue'
       import layoutPage from "~/components/pages/reserva/layoutPage.vue";
       import moment from 'moment'
@@ -55,7 +58,8 @@
         },
         components:{
             CardDetalleTable,
-            layoutPage
+            layoutPage,
+            Mejoras
         },
         computed: {
             plan(){
