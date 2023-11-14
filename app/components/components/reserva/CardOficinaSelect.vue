@@ -1,6 +1,6 @@
 <template>
     <StackLayout padding="10">
-        <StackLayout class="card" padding="0">
+        <StackLayout v-if="recogida.oficina" class="card" padding="0">
             <StackLayout padding="20">
                 
                 <Label text="Oficina de recogida" fontSize="12" fontWeight="900" marginBottom="10" />

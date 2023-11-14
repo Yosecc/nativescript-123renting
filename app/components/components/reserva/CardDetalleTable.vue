@@ -2,10 +2,30 @@
     <StackLayout padding="10">
         <StackLayout class="card" padding="0">
            <StackLayout :backgroundColor="plan.backgroundColor" width="100%" height="30" borderTopLeftRadius="20" borderTopRightRadius="20" />
-           <GridLayout v-for="(item, key) in items" :key="`itemtable-${key}`" columns="*,auto" padding="5">
-                <Label col="0" borderBottomWidth="1" padding="10" borderColor="#868686" :text="item.text" />
-                <Label col="1" borderBottomWidth="1" padding="10" borderColor="#868686" :text="item.amount" />
-           </GridLayout>
+           <StackLayout padding="10">g
+             <GridLayout 
+              v-for="(item, key) in items" 
+              :key="`itemtable-${key}`" 
+              columns="*,auto" 
+              padding=""
+              >
+              <Label col="0" 
+                :borderBottomWidth="key == (items.length-1) ? 0:1" 
+                padding="10" 
+                borderColor="#868686" 
+                :text="item.text" 
+                :fontSize="12" 
+              />
+              <Label col="1" 
+                :borderBottomWidth="key == (items.length-1) ? 0:1" 
+                padding="10" 
+                borderColor="#868686" 
+                :text="item.amount" 
+                :fontSize="key == (items.length-1) ? 16:12"
+                :fontWeight="key == (items.length-1) ? 600:400" 
+              />
+            </GridLayout>
+          </StackLayout>
         </StackLayout>
     </StackLayout>
   </template>
