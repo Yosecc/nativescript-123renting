@@ -1,43 +1,62 @@
 <template>
-    <Page name="code_validation" ref="code_validation" id="code_validation" actionBarHidden="true" >
-      <GridLayout rows="auto,auto,*,auto" class="coverImage">
+    <Page name="payment" ref="payment" id="payment" actionBarHidden="true" >
+      <GridLayout rows="auto,*,auto" class="coverImage">
         <GridLayout row="0" padding="0" marginBottom="10">
             <LottieView height="300" src="creditcards.json" :loop="true" :autoPlay="true" @loaded="lottieViewLoaded"></LottieView>
         </GridLayout>
-         <!-- <StackLayout row="1" padding="20">
-            <Label text="Introduce tu código de verificación" fontSize="20" fontWeight="400" textWrap textAlignment="center" marginBottom="20"/>
-            <Label textWrap="true" fontWeight="400" textAlignment="center">
+        <StackLayout row="1" padding="20">
+            <Label text="Paga tu reserva" fontSize="20" fontWeight="600" textWrap textAlignment="center" marginBottom="20"/>
+            <Label text="Total a pagar" fontWeight="400" textWrap textAlignment="center"/>
+            <Label text="834€" fontSize="70" fontWeight="900" textWrap textAlignment="center" color="#E74117" marginBottom="40"/>
+            <Label textWrap="true" fontWeight="400"  marginBottom="16">
                 <FormattedString>
-                    <Span text="Te hemos enviado tu código de verificación al correo eléctronico " />
-                    <Span text="martinez87@gmail.com " style="color: #E74117" />
+                    <Span text="Disfruta de nuestro " />
+                    <Span text="DESCUENTO del 5% " fontWeight="600" fontSize="16" style="color: #E74117"/>
+                    <Span text="en tu reserva pagando Ahora mismo."  />
                 </FormattedString>
             </Label>
-        </StackLayout> -->
-        <!-- <StackLayout row="2" padding="30 20">
-            <TextField hint="" v-model="code" keyboardType="number" maxLength="4" class="input code" />
-        </StackLayout> -->
-        <!-- -->
-<!-- 
-        <StackLayout row="4" padding="10 10 20 10" >
-            
-                <Label textAlignment="center" fontWeight="300" marginBottom="20" textWrap="true">
-                    <FormattedString>
-                        <Span text="Envíar el código de nuevo en " />
-                        <Span text="00:20 " style="color: #E74117" />
-                    </FormattedString>
-                </Label>
-                
-           
-            <StackLayout @tap="onAction" class="card" padding="15 20" background="#E74117" >
+            <Label textWrap="true" fontWeight="400" >
+                <FormattedString>
+                    <Span text="Si pagas en nuestras oficinas te descontamos " />
+                    <Span text="1€ " fontWeight="600" fontSize="16" style="color: #E74117"/>
+                    <Span text="en tu reserva."  />
+                </FormattedString>
+            </Label>
+        </StackLayout>
+        <StackLayout row="2" padding="10 10 20 10" >
+            <GridLayout @tap="onAction" columns="*, auto" class="card" padding="15 20" marginBottom="10" background="#E74117" >
               <label 
-                textAlignment="center"
+                col="0"
                 color="white"
                 fontWeight="900"
                 fontSize="20"
-                :text="'CONTINUAR'" 
+                :text="'Pagar ahora'" 
               />
-            </StackLayout>
-          </StackLayout> -->
+              <label 
+                col="1"
+                color="white"
+                fontWeight="900"
+                fontSize="20"
+                :text="'100€'" 
+              />
+            </GridLayout>
+            <GridLayout @tap="onAction" columns="*, auto" class="card" padding="15 20" background="#292929" >
+              <label 
+                col="0"
+                color="white"
+                fontWeight="900"
+                fontSize="20"
+                :text="'Pagar en la oficina'" 
+              />
+              <label 
+                col="1"
+                color="white"
+                fontWeight="900"
+                fontSize="20"
+                :text="'100€'" 
+              />
+            </GridLayout>
+          </StackLayout>
       </GridLayout>
     </Page>
   </template>
@@ -73,7 +92,7 @@
                 this._lottieView = args.object;
         },
         onAction() {
-        //   this.$navigator.navigate('/profile/info_personal')
+          this.$navigator.navigate('/payment/success')
           // console.log(this.homeView)
           // this.$navigateTo('reserva');
         }
