@@ -4,6 +4,7 @@
     "version": "1.0.0",
     "private": true,
     "dependencies": {
+        "@nativescript-community/ui-lottie": "^5.0.6",
         "@nativescript/core": "~8.5.0",
         "@nativescript/datetimepicker": "^2.1.13",
         "moment": "^2.29.4",

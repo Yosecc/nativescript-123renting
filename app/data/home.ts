@@ -64,7 +64,8 @@ export const home = {
                 box:{
                     width: '50%',
                     height: '50%'
-                }
+                },
+                
             },
             {
                 textAlignment:"center",
@@ -90,6 +91,9 @@ export const home = {
                 box:{
                     width: '50%',
                     height: '50%'
+                },
+                redirect: {
+                    route: '/auth/login'
                 }
             },
         ],

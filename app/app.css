@@ -6,6 +6,9 @@ ActionBar {
     color: white;
 }
 
+
+/* E74117 */
+
 .card {
     border-radius: 20;
     box-shadow: 2 2 3 rgba(0, 0, 0, .3);
@@ -41,13 +44,36 @@ label {
     color: white;
 }
 
+.input {
+    background: #dddcdc;
+    margin: 10 0;
+    padding: 12;
+    font-size: 18;
+    border-radius: 8;
+    box-shadow: 2 2 3 rgba(0, 0, 0, .3);
+}
+
+.input.code {
+    border-width: 1;
+    border-color: #E74117;
+    font-size: 60;
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: 0.2;
+}
+
+.ns-dark .input {
+    background: #292929;
+    color: white;
+    placeholder-color: white;
+}
+
 timepickerfield,
 datepickerfield {
-    font-size: 20;
-    font-weight: bold;
-    padding: 20;
-    border-radius: 20;
-    box-shadow: 2 2 3 rgba(0, 0, 0, .3);
-    background: #E0E0E0;
-    margin-bottom: 30;
+    background: #292929;
+}
+
+.ns-dark timepickerfield,
+.ns-dark datepickerfield {
+    color: white;
 }

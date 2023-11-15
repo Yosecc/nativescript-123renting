@@ -55,6 +55,7 @@
             :width="item.box.width" 
             :height="item.box.height" 
             padding="5"
+            @tap="item.redirect != undefined ? onRedirect(item.redirect) : null "
           >
             <FlexboxLayout class="card"  background="" width="100%" height="100%" flexDirection="column" justifyContent="center" alignItems="center" >
               <Image 
@@ -122,7 +123,7 @@
   import Vue from "nativescript-vue";
   import { Application, Color, Utils } from '@nativescript/core'
   import { home } from '~/data/home'
-
+  import codeValidation from '~/components/pages/auth/codeValidation.vue'
   export default Vue.extend({
     data(){
       return{
@@ -146,9 +147,14 @@
     },
     methods: {
       logMessage() {
-        this.$navigator.navigate('/reserva/oficina_recogida' )
+        // this.$navigator.navigate('/reserva/oficina_recogida' )
         // console.log(this.homeView)
         // this.$navigateTo('reserva');
+      },
+      onRedirect(redirect: any){
+        this.$navigator.navigate(redirect.route)
+        // console.log('this.$navigateTo',this.$navigateTo(codeValidation))
+        
       }
     }
   });

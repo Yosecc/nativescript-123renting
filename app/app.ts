@@ -6,6 +6,7 @@ import App from './components/App'
 
 import Navigator from 'nativescript-vue-navigator'
 import {routes} from './routes'
+
 Vue.use(Navigator, { routes })
 
 import RadListView from 'nativescript-ui-listview/vue';
@@ -13,6 +14,9 @@ Vue.use(RadListView);
 
 import DateTimePicker from '@nativescript/datetimepicker/vue'
 Vue.use(DateTimePicker);
+
+import LottieView from '@nativescript-community/ui-lottie/vue';
+Vue.use(LottieView);
 
 declare let __DEV__: boolean;
 

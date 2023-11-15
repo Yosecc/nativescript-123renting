@@ -3,7 +3,7 @@
         <Label text="Mejora tu reserva" color="#E74117" fontSize="16" fontWeight="800" textAlignment="center" marginBottom="20" />
 
         <StackLayout class="card" padding="10" >
-            <WrapLayout height="80">
+            <WrapLayout height="100">
                 <GridLayout  width="30%">
                     <Label text="Precio por dia" fontSize="12" margin="12 0" textWrap padding="0" verticalAlignment="bottom" />
                 </GridLayout>
@@ -12,7 +12,7 @@
                         row="0" 
                         :text="`${i.nombre}`" 
                         :color="i.id == plan.id ? 'white':i.backgroundColor" 
-                        fontSize="12" 
+                        fontSize="10" 
                         fontWeight="bold" 
                         :backgroundColor="i.id == plan.id ? i.backgroundColor:''" 
                         
@@ -22,7 +22,7 @@
                     <Label row="1" :text="`${i.amount}`" fontSize="14" textAlignment="center"  margin="4" />
                 </GridLayout>
             </WrapLayout>
-            <WrapLayout height="40" v-for="(item, key) in items" :key="`item-${key}`">
+            <WrapLayout height="50" v-for="(item, key) in items" :key="`item-${key}`">
                 <GridLayout width="30%">
                     <Label :text="item.text" fontSize="12" margin="0" textWrap padding="0" />
                 </GridLayout>

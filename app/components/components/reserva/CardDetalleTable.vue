@@ -1,8 +1,10 @@
 <template>
     <StackLayout padding="10">
         <StackLayout class="card" padding="0">
-           <StackLayout :backgroundColor="plan.backgroundColor" width="100%" height="30" borderTopLeftRadius="20" borderTopRightRadius="20" />
-           <StackLayout padding="10">g
+          <GridLayout :backgroundColor="plan.backgroundColor" width="100%" height="30" borderTopLeftRadius="20" borderTopRightRadius="20">
+            <Label :text="`${plan.nombre} ${plan.amount}`" textAlignment="center" fontWeight="800" fontSize="10" margin="0"  />
+          </GridLayout>
+           <StackLayout padding="10">
              <GridLayout 
               v-for="(item, key) in items" 
               :key="`itemtable-${key}`" 
