@@ -37,7 +37,10 @@ export const home = {
             color:"white" , 
             fontWeight:"900", 
             fontSize:"20",
-            background: '#E74117'
+            background: '#E74117',
+            redirect: {
+                route: '/reserva/oficina_recogida'
+            }
         },
         gridButtons: [
             {
@@ -51,6 +54,9 @@ export const home = {
                 box:{
                     width: '50%',
                     height: '50%'
+                },
+                redirect: {
+                    route: '/flota'
                 }
             },
             {
@@ -65,6 +71,9 @@ export const home = {
                     width: '50%',
                     height: '50%'
                 },
+                redirect: {
+                    route: '/oficina'
+                }
                 
             },
             {

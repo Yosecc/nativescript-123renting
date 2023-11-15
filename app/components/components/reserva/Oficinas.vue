@@ -1,5 +1,5 @@
 <template>
-    <RadListView
+    <!-- <RadListView
         :items="data"
         @itemTap="onItemSelected"
     >
@@ -7,14 +7,21 @@
             <StackLayout padding="10">
                 <GridLayout width="100%" columns="*, auto"  padding="20 30" class="card">
                     <Label col="0" :text="item.text" fontSize="16" textWrap />
-                    <AbsoluteLayout col="1" marginLeft="10">
+                    <AbsoluteLayout v-if="mode == 'radio'" col="1" marginLeft="10">
                         <StackLayout top="0" left="0" borderColor="#E74117" borderWidth="3" width="25" borderRadius="100%" height="25" />
                         <StackLayout v-if="oficina_id == item.id" top="5" left="5" background="#E74117" width="15" height="15" borderRadius="100%"/>
                     </AbsoluteLayout>
                 </GridLayout>
             </StackLayout>
         </v-template>
-    </RadListView>
+    </RadListView> -->
+    <MapView
+        @ready="onReady"
+        @mapTap="onTap"
+        @mapLongPress="onLongPress"
+        @markerTap="onMarkerTap"
+
+      />
   </template>
   
   <script lang="ts">
@@ -36,6 +43,10 @@
             oficina: {
                 type: Number,
                 default: 0
+            },
+            mode:{
+              type: String,
+              default: 'radio'
             }
         },
       data(){
@@ -50,8 +61,25 @@
         onItemSelected(args){
             args.object.refresh()
             this.oficina_id = args.item.id
-            this.$emit('change', this.oficina_id) 
-        }
+            if(this.mode == 'radio'){
+              this.$emit('change', this.oficina_id) 
+            }
+            if(this.mode == 'list'){
+              alert('map')
+            }
+        },
+        onReady(){
+          console.log('onReady')
+        },
+        onTap(){
+          console.log('onTap')
+        },
+        onLongPress(){
+          console.log('onLongPress')
+        },
+        onMarkerTap(){
+          console.log('onMarkerTap')
+        },
       }
     });
   </script>

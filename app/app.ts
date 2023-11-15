@@ -18,6 +18,9 @@ Vue.use(DateTimePicker);
 import LottieView from '@nativescript-community/ui-lottie/vue';
 Vue.use(LottieView);
 
+import GoogleMaps from '@nativescript/google-maps/vue'
+Vue.use(GoogleMaps)
+
 declare let __DEV__: boolean;
 
 // Prints Vue logs when --env.production is *NOT* set while building

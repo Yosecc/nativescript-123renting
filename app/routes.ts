@@ -1,4 +1,6 @@
 import Home from './components/pages/Home.vue'
+import Flota from './components/pages/Flota.vue'
+import Oficina from './components/pages/Oficina.vue'
 
 // RESERVA
 import oficinaRecogida from './components/pages/reserva/oficinaRecogida.vue'
@@ -18,6 +20,7 @@ import infoPersonal from './components/pages/profile/infoPersonal.vue'
 
 //PAYMENT
 import payment from './components/pages/payment/index.vue'
+import successPayment from './components/pages/payment/successPayment.vue'
 
 
 export const routes = {
@@ -56,5 +59,14 @@ export const routes = {
   },
   '/payment':{
     component: payment
+  },
+  '/payment/success':{
+    component: successPayment
+  },
+  '/flota':{
+    component: Flota
+  },
+  '/oficina':{
+    component: Oficina
   },
 }
