@@ -1,5 +1,5 @@
 <template>
-    <!-- <RadListView
+    <RadListView
         :items="data"
         @itemTap="onItemSelected"
     >
@@ -14,14 +14,8 @@
                 </GridLayout>
             </StackLayout>
         </v-template>
-    </RadListView> -->
-    <MapView
-        @ready="onReady"
-        @mapTap="onTap"
-        @mapLongPress="onLongPress"
-        @markerTap="onMarkerTap"
-
-      />
+    </RadListView>
+   
   </template>
   
   <script lang="ts">
@@ -29,7 +23,7 @@
     import { Application, Color, Utils } from '@nativescript/core'
     import { home } from '~/data/home'
     import { oficinas } from '~/data/oficinas'
-   
+    import { GoogleMap, MarkerOptions, Marker } from '@nativescript/google-maps';
     export default Vue.extend({
         model: {
             prop: 'oficina',
@@ -58,6 +52,7 @@
 
       },
       methods: {
+
         onItemSelected(args){
             args.object.refresh()
             this.oficina_id = args.item.id
@@ -65,21 +60,11 @@
               this.$emit('change', this.oficina_id) 
             }
             if(this.mode == 'list'){
-              alert('map')
+              // alert('sjd')
+              this.$navigator.navigate('/oficina/map', { props:  { oficina: args.item } } )
             }
         },
-        onReady(){
-          console.log('onReady')
-        },
-        onTap(){
-          console.log('onTap')
-        },
-        onLongPress(){
-          console.log('onLongPress')
-        },
-        onMarkerTap(){
-          console.log('onMarkerTap')
-        },
+       
       }
     });
   </script>

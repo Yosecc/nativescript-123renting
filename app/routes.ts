@@ -1,6 +1,7 @@
 import Home from './components/pages/Home.vue'
-import Flota from './components/pages/Flota.vue'
-import Oficina from './components/pages/Oficina.vue'
+import Flota from './components/pages/flota/index.vue'
+import Oficina from './components/pages/oficina/index.vue'
+import Mapp from './components/pages/oficina/map.vue'
 
 // RESERVA
 import oficinaRecogida from './components/pages/reserva/oficinaRecogida.vue'
@@ -68,5 +69,8 @@ export const routes = {
   },
   '/oficina':{
     component: Oficina
+  },
+  '/oficina/map':{
+    component: Mapp
   },
 }
