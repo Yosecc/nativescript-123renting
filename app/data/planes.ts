@@ -5,7 +5,7 @@ export const planes = {
         {
             id: 1, 
             nombre: 'Basic',
-            amount: '100€',
+            amount: 100,
             backgroundColor: '#00B982',
             borderTopLeftRadius:"10",
             borderTopRightRadius:"10",
@@ -14,7 +14,7 @@ export const planes = {
         {
             id: 2, 
             nombre: 'Medium',
-            amount: '125€',
+            amount: 125,
             backgroundColor: '#FF3300',
             borderTopLeftRadius:"10",
             borderTopRightRadius:"10",
@@ -22,7 +22,7 @@ export const planes = {
         {
             id: 3, 
             nombre: 'Premium',
-            amount: '135€',
+            amount: 13,
             backgroundColor: '#FF9900',
             borderTopLeftRadius:"10",
             borderTopRightRadius:"10",

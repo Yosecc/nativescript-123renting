@@ -46,11 +46,11 @@ export const home = {
             {
                 textAlignment:"center",
                 text:"Flota" ,
-                fontSize:"20" ,
-                fontWeight:"400" ,
+                fontSize:"15%" ,
+                fontWeight:"800" ,
                 src:"res://car",
-                height:"40" ,
-                width:"40",
+                height:"40%" ,
+                width:"40%",
                 box:{
                     width: '50%',
                     height: '50%'
@@ -62,11 +62,11 @@ export const home = {
             {
                 textAlignment:"center",
                 text:"Oficina" ,
-                fontSize:"20" ,
-                fontWeight:"400" ,
+                fontSize:"15%" ,
+                fontWeight:"800" ,
                 src:"res://edificio",
-                height:"40" ,
-                width:"40",
+                height:"40%" ,
+                width:"40%",
                 box:{
                     width: '50%',
                     height: '50%'
@@ -79,30 +79,35 @@ export const home = {
             {
                 textAlignment:"center",
                 text:"Mis reservas" ,
-                fontSize:"20" ,
-                fontWeight:"400" ,
+                fontSize:"15%" ,
+                fontWeight:"800" ,
                 src:"res://reserve",
-                height:"40" ,
-                width:"40",
-                box:{
-                    width: '50%',
-                    height: '50%'
-                }
-            },
-            {
-                textAlignment:"center",
-                text:"Perfil" ,
-                fontSize:"20" ,
-                fontWeight:"400" ,
-                src:"res://person",
-                height:"40" ,
-                width:"40",
+                height:"40%" ,
+                width:"40%",
                 box:{
                     width: '50%',
                     height: '50%'
                 },
                 redirect: {
-                    route: '/auth/login'
+                    route: '/profile/reservaciones'
+                }
+            },
+            {
+                textAlignment:"center",
+                text:"Perfil" ,
+                fontSize:"15%" ,
+                fontWeight:"800" ,
+                src:"res://person",
+                height:"40%" ,
+                width:"40%",
+                box:{
+                    width: '50%',
+                    height: '50%'
+                },
+                redirect: {
+                    route: '/profile/info_personal',
+                    meta: { auth: true , button: 'Guardar', onActionRoute: 'save_data_info_personal', inputsCustom: { tc: false }},
+                    
                 }
             },
         ],
@@ -120,7 +125,10 @@ export const home = {
                 width:"25",
                 box:{
                     width: '33.33%',
-                    height: '33.33%'
+                    height: 'auto'
+                },
+                redirect: {
+                    route: '/contacto'
                 }
             },
             {
@@ -133,7 +141,10 @@ export const home = {
                 width:"25",
                 box:{
                     width: '33.33%',
-                    height: '33.33%'
+                    height: 'auto'
+                },
+                redirect: {
+                    route: '/metodo_payment'
                 }
             },
             {
@@ -146,7 +157,10 @@ export const home = {
                 width:"25",
                 box:{
                     width: '33.33%',
-                    height: '33.33%'
+                    height: 'auto'
+                },
+                redirect: {
+                    route: '/preguntas_frecuentes'
                 }
             },
             

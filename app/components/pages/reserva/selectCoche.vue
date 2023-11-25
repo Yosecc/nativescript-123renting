@@ -1,12 +1,12 @@
 <template>
     <layoutPage 
-      :title="'Confirma tu reserva'"
+      :title="'Selecciona tu coche'"
       :buttonname="'CONTINUAR'"
       :view_button="false"
       @buttonAction="onButtonAction"
     >
 
-      <Label row="0" marginLeft="10" marginBottom="10" text="Confirma tu reserva y vive la mejor de tus aventuras con nosotros." textWrap />  
+      <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Selecciona el coche y el plan que más se ajuste a tí." textWrap />  
       <listCoches row="1" :data="list_coches" v-model="coche" @onChange="onChangeCoche" />
 
     </layoutPage>
@@ -23,11 +23,8 @@
       export default Vue.extend({
         data(){
           return{
-            list_coches: [],
-            coche: {
-                plan_id: 0,
-                coche_id: 0
-            }
+            list_coches: coches.data,
+            coche: reserva.coche
           }
         },
         watch:{
@@ -51,10 +48,8 @@
             }
         },
         created(){
-            this.list_coches = coches.data
         },
         mounted(){
-          // console.log(this.homeView)
         },
         methods: {
           onBack() {
@@ -62,7 +57,7 @@
           },
           onChangeCoche(){
             console.log(this.coche)
-            this.$navigator.navigate('/reserva/confirmacion', {props: { data: this.coche}})
+            this.$navigator.navigate('/reserva/confirmacion', {props: { data: this.coche }})
           },
           onButtonAction(){
             // this.$navigator.navigate('/reserva/oficina_devolucion' )

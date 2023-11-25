@@ -9,13 +9,14 @@
 
       <GridLayout row="1" rows="auto,auto,*,auto,auto" padding="0 10">
         <!-- https://picsum.photos/200/300 -->
-        <StackLayout row="0" paddingBottom="10">
+        <StackLayout v-if="!hasReserva" row="0" paddingBottom="10">
+          <Label :text="JSON.stringify(reservaActive)" />
           <Label textAlignment="center" class="title" padding="0" margin="0" lineHeight="0" textWrap="true">
             <FormattedString  >
               <Span 
                 v-for="(item, key) in homeView.header.title"
                 :key="`title-${key}`"
-                :text="item.text"
+                :text="`${item.text}`"
                 :fontSize="item.fontSize"
                 :fontWeight="item.fontWeight"
                 :color="item.color"
@@ -35,7 +36,11 @@
           />
         </StackLayout>
         <!--  -->
-        <StackLayout row="1" padding="10 5 5 5">
+        <StackLayout v-else>
+          <CardReservacionVue :reserva="reservaActive" />
+        </StackLayout>
+        <!--  -->
+        <StackLayout v-if="!hasReserva" row="1" padding="0 5 5 5">
           <StackLayout class="card" padding="20" :background="homeView.body.button.background" >
             <label 
               :textAlignment="homeView.body.button.textAlignment"
@@ -43,9 +48,25 @@
               :fontWeight="homeView.body.button.fontWeight"
               :fontSize="homeView.body.button.fontSize"
               :text="homeView.body.button.text" 
-              @tap="logMessage" 
+              @tap="logMessage"
+              class="text"
             />
           </StackLayout>
+        </StackLayout>
+
+        <StackLayout padding="0 5 5 5" v-else>
+          <StackLayout class="card" padding="20" :background="homeView.body.button.background" >
+            <label 
+              :textAlignment="homeView.body.button.textAlignment"
+              :color="homeView.body.button.color"
+              :fontWeight="homeView.body.button.fontWeight"
+              :fontSize="homeView.body.button.fontSize"
+              :text="'Desbloquear coche'" 
+              class="text"
+            />
+          </StackLayout>
+
+          <Label @tap="logMessage" text="Iniciar una nueva reserva" color="#E74117" textAlignment="center" fontWeight="900" margin="10" />
         </StackLayout>
         <!--  -->
         <WrapLayout row="2" >
@@ -70,6 +91,7 @@
                 :fontSize="item.fontSize" 
                 :fontWeight="item.fontWeight" 
                 textWrap 
+                class="text"
               />
             </FlexboxLayout>
           </StackLayout>
@@ -86,10 +108,11 @@
             v-for="(item, key) in homeView.body.gridButtonsBottom"
             :key="`cardbottom-${key}`"
             padding="5" 
-            :width="item.box.width" 
+            :width="item.box.width"
+            @tap="item.redirect != undefined ? onRedirect(item.redirect) : null " 
           >
             <FlexboxLayout 
-              padding="19" 
+              padding="5" 
               width="100%" 
               class="card"
               height="100%" 
@@ -109,6 +132,7 @@
                 :fontSize="item.fontSize"
                 :fontWeight="item.fontWeight"
                 textWrap 
+                class="text"
               />
             </FlexboxLayout>
           </FlexboxLayout> 
@@ -124,11 +148,21 @@
   import { Application, Color, Utils } from '@nativescript/core'
   import { home } from '~/data/home'
   import codeValidation from '~/components/pages/auth/codeValidation.vue'
+  import redirecMixin from '~/components/mixins/redirectMixin'
+  import { Reservas, restaurarReserva } from "~/data/reserva";
+  import cache from "~/plugins/cache";
+  import CardReservacionVue from "~/components/components/reserva/CardReservacion.vue";
+  
   export default Vue.extend({
+  	mixins: [redirecMixin],
     data(){
       return{
         homeView: {},
+        reservaActive: undefined
       }
+    },
+    components:{
+      CardReservacionVue
     },
     computed: {
       message() {
@@ -136,25 +170,24 @@
       },
       isDark(){
         return Application.systemAppearance() === 'dark'
+      },
+      hasReserva(){
+        return this.reservaActive != undefined
       }
     },
     created(){
       this.homeView = home
     },
     mounted(){
-      // console.log(this.homeView)
-
+      this.reservaActive = Reservas.getReservaActive()
     },
     methods: {
       logMessage() {
+        restaurarReserva()
         this.$navigator.navigate('/reserva/oficina_recogida' )
-        // console.log(this.homeView)
-        // this.$navigateTo('reserva');
       },
-      onRedirect(redirect: any){
-        this.$navigator.navigate(redirect.route)
-        // console.log('this.$navigateTo',this.$navigateTo(codeValidation))
-        
+      onRedirect(redirect:any){
+        this.redirect(redirect)
       }
     }
   });

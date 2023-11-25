@@ -3,7 +3,7 @@
         <StackLayout v-if="recogida.oficina" class="card" padding="0">
             <StackLayout padding="20">
                 
-                <Label text="Oficina de recogida" fontSize="12" fontWeight="900" marginBottom="10" />
+                <Label class="text" text="Oficina de recogida" fontSize="12" fontWeight="900" marginBottom="10" />
                 <StackLayout orientation="horizontal" marginBottom="10">
                     <Image src="res://ubicacion" width="20" stretch="aspectFit" marginRight="5" />
                     <Label :text="recogida.oficina.text" fontSize="14" fontWeight="200" textWrap />
@@ -12,30 +12,30 @@
                 <StackLayout orientation="horizontal">
                     <StackLayout orientation="horizontal"  marginRight="20" >
                         <Image src="res://calendar" width="20" stretch="aspectFit" marginRight="5" />
-                        <Label :text="recogida.fecha.date"  fontWeight="200" textWrap />
+                        <Label class="text" :text="recogida.fecha.date"  fontWeight="200" textWrap />
                     </StackLayout>
                     <StackLayout orientation="horizontal">
                         <Image src="res://calendar" width="20" stretch="aspectFit" marginRight="5" />
-                        <Label :text="`${recogida.fecha.time} Hrs.`"  fontWeight="200" textWrap />
+                        <Label class="text" :text="`${recogida.fecha.time} Hrs.`"  fontWeight="200" textWrap />
                     </StackLayout>
                 </StackLayout>
 
                 <StackLayout width="100%" height="2" background="#868686" opacity=".5" margin="20 0" />
 
-                <Label text="Oficina de devolución" fontSize="12" fontWeight="900" marginBottom="10" />
+                <Label class="text" text="Oficina de devolución" fontSize="12" fontWeight="900" marginBottom="10" />
                 <StackLayout orientation="horizontal" marginBottom="10">
                     <Image src="res://ubicacion" width="20" stretch="aspectFit" marginRight="5" />
-                    <Label :text="devolucion.oficina.text" fontSize="14" fontWeight="200" textWrap />
+                    <Label class="text" :text="devolucion.oficina.text" fontSize="14" fontWeight="200" textWrap />
                 </StackLayout>
 
                 <StackLayout orientation="horizontal">
                     <StackLayout orientation="horizontal"  marginRight="20" >
                         <Image src="res://calendar" width="20" stretch="aspectFit" marginRight="5" />
-                        <Label :text="devolucion.fecha.date"  fontWeight="200" textWrap />
+                        <Label class="text" :text="devolucion.fecha.date"  fontWeight="200" textWrap />
                     </StackLayout>
                     <StackLayout orientation="horizontal">
                         <Image src="res://calendar" width="20" stretch="aspectFit" marginRight="5" />
-                        <Label :text="`${devolucion.fecha.time} Hrs.`"  fontWeight="200" textWrap />
+                        <Label class="text" :text="`${devolucion.fecha.time} Hrs.`"  fontWeight="200" textWrap />
                     </StackLayout>
                 </StackLayout>
                 

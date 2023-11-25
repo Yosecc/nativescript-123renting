@@ -1,43 +1,56 @@
 <template>
     <Page name="code_validation" ref="code_validation" id="code_validation" actionBarHidden="true" >
-      <GridLayout rows="auto,auto,*,auto" class="coverImage">
-        <GridLayout row="0" padding="50 10" marginBottom="10">
-            <Image src="~/assets/validation_check.png" v-if="code.length==4" width="150" paddingTop="10" />
-            <Image src="~/assets/validation.png" v-else  width="150" paddingTop="10" />
+      <GridLayout rows="auto,auto,auto,*,auto" class="coverImage">
+        <GridLayout row="0" columns="auto, *, auto" padding="20" >
+          <Image col="0" @tap="onBack" src="~/assets/arrow_back.png" width="40" marginRight="10" />
+          <Label col="1" textAlignment="center" :text="''" class="text" fontWeight="600" fontSize="16" />
+          <Label col="2" width="40" height="40" background="transparent" />
         </GridLayout>
-         <StackLayout row="1" padding="20">
-            <Label text="Introduce tu código de verificación" fontSize="20" fontWeight="400" textWrap textAlignment="center" marginBottom="20"/>
-            <Label textWrap="true" fontWeight="400" textAlignment="center">
+        <GridLayout row="1" padding="" marginBottom="10">
+          <LottieView row="0" height="200" src="candado.json" :loop="true" :autoPlay="true" @loaded="lottieViewLoaded"></LottieView>
+        </GridLayout>
+         <StackLayout row="2" padding="20">
+            <Label class="text" text="Introduce tu código de verificación" fontSize="20" fontWeight="400" textWrap textAlignment="center" marginBottom="20"/>
+            <Label class="text" textWrap="true" fontWeight="400" textAlignment="center">
                 <FormattedString>
                     <Span text="Te hemos enviado tu código de verificación al correo eléctronico " />
-                    <Span text="martinez87@gmail.com " style="color: #E74117" />
+                    <Span :text="`${email} `" style="color: #E74117" />
                 </FormattedString>
             </Label>
         </StackLayout>
-        <StackLayout row="2" padding="30 20">
-            <TextField hint="" v-model="code" keyboardType="number" maxLength="4" class="input code" />
+        <StackLayout row="3" padding="30 20">
+            <Inputs v-model="inputs" />
+            <!-- <TextField hint="" v-model="code" keyboardType="number" maxLength="4" class="input code" /> -->
         </StackLayout>
         <!-- -->
 
         <StackLayout row="4" padding="10 10 20 10" >
             
-                <Label textAlignment="center" fontWeight="300" marginBottom="20" textWrap="true">
-                    <FormattedString>
-                        <Span text="Envíar el código de nuevo en " />
-                        <Span text="00:20 " style="color: #E74117" />
-                    </FormattedString>
-                </Label>
-                
-           
-            <StackLayout @tap="onAction" class="card" padding="15 20" background="#E74117" >
+            <Label class="text" textAlignment="center" v-if="conteo > 0" fontWeight="300" marginBottom="20" textWrap="true">
+              <FormattedString>
+                <Span text="Envíar el código de nuevo en " />
+                <Span :text="conteo" style="color: #E74117" />
+              </FormattedString>
+            </Label>
+
+            <Label class="text" v-else textAlignment="center" fontWeight="800" marginBottom="20" textWrap="true" textDecoration="underline" @tap="reenviarCode">
+              <FormattedString>
+                <Span text="Reeviar codigo" />
+              </FormattedString>
+            </Label>
+
+            <StackLayout @tap="onAction"  v-if="!loading" class="card" padding="15 20" background="#E74117" >
               <label 
                 textAlignment="center"
                 color="white"
                 fontWeight="900"
                 fontSize="20"
-                :text="'CONTINUAR'" 
+                :text="'CONTINUAR'"
+                class="text"
               />
             </StackLayout>
+            <ActivityIndicator v-else busy="true" color="#E74117" />
+
           </StackLayout>
       </GridLayout>
     </Page>
@@ -46,12 +59,21 @@
   <script lang="ts">
     import Vue from "nativescript-vue";
     import { Application, Color, Utils } from '@nativescript/core'
-    // import { home } from '~/data/home'
-  
+    import { codeValidation, login } from "~/data/auth";
+    import Inputs from '~/components/components/modules/inputs.vue'
     export default Vue.extend({
+      props:{
+            prox_ruta:{
+                type: String,
+                default: ''
+            }
+        },
       data(){
         return{
-          code: ''
+          inputs: codeValidation.inputs,
+          _lottieView: null,
+          conteo: 60,
+          loading: false
         }
       },
       computed: {
@@ -60,20 +82,69 @@
         },
         isDark(){
           return Application.systemAppearance() === 'dark'
+        },
+        code(){
+          return codeValidation.getCode
+        },
+        email(){
+          return login.getEmail()
         }
+      },
+      components:{
+        Inputs
       },
       created(){
         
       },
       mounted(){
         // console.log(this.homeView)
-  
+        this.contador()
       },
       methods: {
+        reenviarCode(){
+          this.loading = true
+          codeValidation.onResendCode().then((response)=>{
+            this.loading = false
+            if(response.status=='success'){
+              this.conteo = 60
+              this.contador()
+              alert('Codigo enviado')
+            }
+          })
+        },
+        contador(){
+          const intervalo = setInterval(() => {
+            if (this.conteo > 0) {
+              this.conteo = this.conteo - 1;
+            } else {
+              clearInterval(intervalo);
+            }
+          }, 1000);
+        },
+        onBack() {
+          this.$navigator.back()
+        },
+        lottieViewLoaded(args:any) {
+          this._lottieView = args.object;
+          this._lottieView.progress = 0.2
+          this._lottieView.speed = 1.2
+        },
         onAction() {
-          this.$navigator.navigate('/profile/info_personal')
-          // console.log(this.homeView)
-          // this.$navigateTo('reserva');
+          this.loading = true
+          codeValidation.onValidateCode().then((response)=>{
+            this.loading = false
+            switch (response.status) {
+              case 'success':
+                this.$navigator.navigate(this.prox_ruta, { props: { prox_ruta: this.prox_ruta } })
+                break;
+              case 'error':
+                alert(response.message)
+                return
+                break;
+              default:
+                break;
+            }
+          })
         }
       }
     });

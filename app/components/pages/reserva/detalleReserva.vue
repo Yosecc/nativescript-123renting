@@ -6,12 +6,16 @@
       @buttonAction="onButtonAction"
     >
 
-      <Label row="0" marginLeft="10" marginBottom="10" text="Revisa los detalles de tu reserva." textWrap />  
+      <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Revisa los detalles de tu reserva." textWrap />  
     
         <GridLayout row="1" rows="auto, *">
-            <CardDetalleTable :plan="plan" :items="items" row="0" />
-            <Mejoras :plan="plan"  row="1" />
-
+            <CardDetalleTable :plan="plan" :items="items" row="0" v-if="reload" />
+            <Mejoras :plan="plan_id" v-model="mejoraGrupo" row="1" />
+            <!-- <StackLayout row="2">
+              <label :text="JSON.stringify(plan_id)"  />
+              <label :text="JSON.stringify(mejoraGrupo)" row="2" />
+              <label :text="JSON.stringify(items)" row="2" />
+            </StackLayout> -->
         </GridLayout>
 
     </layoutPage>
@@ -19,16 +23,15 @@
     
     <script lang="ts">
       import Vue from "nativescript-vue";
+      // import { infoPersonal } from '~/data/profile'
       import { reserva } from '~/data/reserva'
       import { coches } from '~/data/coches'
       import { planes } from '~/data/planes'
-      import { oficinas } from '~/data/oficinas'
       import CardDetalleTable from '~/components/components/reserva/CardDetalleTable.vue'
       import Mejoras from '~/components/components/reserva/Mejoras.vue'
-      import CardOficinaSelect from '~/components/components/reserva/CardOficinaSelect.vue'
       import layoutPage from "~/components/pages/reserva/layoutPage.vue";
-      import moment from 'moment'
-
+      import { isAuthenticated } from "~/data/auth";
+      
       export default Vue.extend({
         props:{
             data: {
@@ -41,14 +44,27 @@
         },
         data(){
           return{
-            // list_coches: [],
-            // coche: {
-                // plan_id: 0,
-                // coche_id: 0
-            // }
+            reservaMejoras: reserva.mejoras,
+            mejoraGrupo:{
+              plan_id: reserva.coche.plan_id,
+              mejoras: reserva.mejoras
+            },
+            reload: true,
+            items: reserva.updateInvoice()
           }
         },
         watch:{
+          plan_id(to){
+            reserva.coche.plan_id = to
+            this.items = reserva.updateInvoice()
+            // this.Reload()
+          },
+          mejoras(to){
+            reserva.mejoras = to
+            this.items = reserva.updateInvoice()
+            // this.Reload()
+          },
+          
             // plan(to){
             //     reserva.coche.plan_id = to
             // },
@@ -62,42 +78,43 @@
             Mejoras
         },
         computed: {
+            plan_id(){
+              return this.mejoraGrupo.plan_id
+            },
+            mejoras(){
+              return this.mejoraGrupo.mejoras
+            },
             plan(){
-                return planes.data.find((e)=> e.id == this.data.plan_id)
+                return planes.data.find((e)=> e.id == this.plan_id)
             },
-            coche(){
-                return coches.data.find((e)=> e.id == this.data.coche_id)
-            },
-            items(){
-                return [
-                    {
-                        text: 'Precio tarifa Plan Basic por 6 días',
-                        amount: '600€'
-                    },
-                    {
-                        text: 'Sub-total',
-                        amount: '624€'
-                    },
-                    {
-                        text: 'Total a pagar x 6 días',
-                        amount: '624€'
-                    },
-                ]
-            }
+            // items(){
+            //   return reserva.invoice.list
+            // }
         },
         created(){
-            // this.list_coches = coches.data
+          //  reserva.updateInvoice()
         },
         mounted(){
-          // console.log(this.homeView)
+         
+          // this.Reload()
         },
         methods: {
-        //   onBack() {
-        //     this.$navigator.back()
-        //   },
-        //   onButtonAction(){
-        //     this.$navigator.navigate('/reserva/detalle_reserva' )
-        //   }
+          Reload(){
+            this.reload = false
+            setTimeout(() => {
+              this.reload = true
+            }, 2000);
+          },
+          onBack() {
+            this.$navigator.back()
+          },
+          onButtonAction(){
+            if(!isAuthenticated()){
+              this.$navigator.navigate('/auth/login')
+            }else{
+              this.$navigator.navigate('/payment')
+            } 
+          }
         }
       });
     </script>

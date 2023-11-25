@@ -5,8 +5,10 @@
     "private": true,
     "dependencies": {
         "@nativescript-community/ui-lottie": "^5.0.6",
+        "@nativescript-community/ui-pager": "^14.1.8",
         "@nativescript/core": "~8.5.0",
         "@nativescript/datetimepicker": "^2.1.13",
+        "@nativescript/geolocation": "^8.3.1",
         "@nativescript/google-maps": "^1.6.0",
         "moment": "^2.29.4",
         "nativescript-ui-listview": "^15.2.3",
