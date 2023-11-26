@@ -3,7 +3,7 @@
 @tailwind utilities;
 ActionBar {
     /* background-color: #E74117; */
-    color: white;
+    /* color: white; */
 }
 
 
@@ -19,9 +19,17 @@ ActionBar {
     border-radius: 16;
 }
 
-.title,
-label {
+
+/* .title, .texto {
     color: #212121;
+} */
+
+.coverImage Label {
+    color: #212121;
+}
+
+.ns-dark .coverImage Label {
+    color: white;
 }
 
 .coverImage {
@@ -36,11 +44,23 @@ label {
 
 .ns-dark .card {
     background: #212121;
-    color: white;
+    /* color: white; */
 }
 
-.ns-dark .title,
-.ns-dark label {
+.buttonMejora {
+    background: #E0E0E0;
+    border-width: 1;
+    border-color: #CFD8DC;
+}
+
+.ns-dark .buttonMejora {
+    background: #212121;
+}
+
+
+/* .ns-dark .title, */
+
+.ns-dark .texto {
     color: white;
 }
 
@@ -64,7 +84,7 @@ label {
 
 .ns-dark .input {
     background: #292929;
-    color: white;
+    /* color: white; */
     placeholder-color: white;
 }
 
@@ -75,5 +95,17 @@ datepickerfield {
 
 .ns-dark timepickerfield,
 .ns-dark datepickerfield {
-    color: white;
+    /* color: white; */
 }
+
+
+/* .dialog {
+    background-color: cyan;
+} */
+
+
+/* Dialog Label {
+    color: red !important;
+    background-color: cyan !important;
+    font-size: 24 !important;
+} */

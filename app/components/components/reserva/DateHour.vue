@@ -1,7 +1,7 @@
   <template>
     <StackLayout padding="10">
-        <DatePickerField :date="fechasData.date" :minDate="minDate" @dateChange="onDateChange"  hint="Seleccionar fecha"></DatePickerField>
-        <TimePickerField :time="fechasData.time" :minTime="minTime" @timeChange="onTimeChange" hint="Seleccionar hora"></TimePickerField>
+        <DatePickerField :date="fechasData.date" :minDate="minDate" @dateChange="onDateChange"  hint="Seleccionar fecha" class="input"></DatePickerField>
+        <TimePickerField :time="fechasData.time" :minTime="minTime" @timeChange="onTimeChange" hint="Seleccionar hora" class="input"></TimePickerField>
     </StackLayout>
   </template>
   

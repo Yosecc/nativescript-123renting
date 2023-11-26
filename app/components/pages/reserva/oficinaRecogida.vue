@@ -4,7 +4,7 @@
     :buttonname="'CONTINUAR'"
     @buttonAction="onButtonAction"
   >
-    <Label row="0" marginLeft="10" marginBottom="10" text="Selecciona la oficina donde deseas recoger tu coche."  textWrap es./>  
+    <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Selecciona la oficina donde deseas recoger tu coche."  textWrap />  
     <Oficinas row="1" :name="'oficina_recogida'" :data="oficinasData" v-model="oficina_id" />
   </layoutPage>
 </template>
@@ -21,8 +21,8 @@
     export default Vue.extend({
       data(){
         return{
-          oficinasData:  [],
-          oficina_id: 0,
+          oficinasData:  oficinas.data,
+          oficina_id: reserva.recogida.oficina_id,
         }
       },
       watch:{
@@ -43,17 +43,18 @@
         }
       },
       created(){
-        this.oficinasData = oficinas.data
       },
       mounted(){
-        // console.log(this.homeView)
-        
       },
       methods: {
         onBack() {
           this.$navigator.back()
         },
         onButtonAction(){
+          if(reserva.recogida.oficina_id == 0){
+            alert('Selecciona una oficina para continuar')
+            return
+          }
           this.$navigator.navigate('/reserva/date_recogida' )
 
         }

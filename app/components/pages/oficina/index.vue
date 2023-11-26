@@ -5,7 +5,7 @@
       :view_button="false"
       @buttonAction="onButtonAction"
     >
-      <Label row="0" marginLeft="10" marginBottom="10" text="Estamos esperando tu visita a nuestras oficinas."  textWrap es./>  
+      <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Estamos esperando tu visita a nuestras oficinas."  textWrap es./>  
       <Oficinas row="1" :name="'oficina_recogida'" :data="oficinasData" v-model="oficina_id" mode="list" />
     </layoutPage>
   </template>
@@ -55,7 +55,7 @@
             this.$navigator.back()
           },
           onButtonAction(){
-            this.$navigator.navigate('/reserva/date_recogida' )
+            // this.$navigator.navigate('/reserva/date_recogida' )
   
           }
         }

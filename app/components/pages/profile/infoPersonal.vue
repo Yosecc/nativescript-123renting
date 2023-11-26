@@ -1,68 +1,63 @@
 <template>
-    <Page name="info_personal" ref="info_personal" id="info_personal" actionBarHidden="true" >
-      <GridLayout rows="auto,*,auto" class="coverImage">
-        <GridLayout row="0" columns="auto, *, auto" padding="20" >
-          <Image col="0" src="~/assets/arrow_back.png" width="40" marginRight="10" />
-          <Label col="1" textAlignment="center" text="Información personal" fontWeight="600" fontSize="16" />
-          <Label col="2" width="40" height="40" background="transparent" />
+    <layoutPage 
+      :title="'Información personal'"
+      :buttonname="meta.button"
+      :view_button="true"
+      :loading="loading"
+      @buttonAction="onButtonAction"
+      name="info_personal"
+    >
+        <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Completa tus datos personales."  textWrap />  
+        <GridLayout  row="1">
+        <ScrollView >
+          <Inputs v-model="inputs"  v-if="reload" />
+        </ScrollView>
         </GridLayout>
+    </layoutPage>
 
-        <StackLayout background="" row="1" padding="0 20">
-            <Label text="Completa tus datos personales." marginBottom="20" />
-
-            <StackLayout
-                v-for="(item, key) in inputs"
-                :key="`input-${key}`"
-            >    
-                <StackLayout v-if="item.type == 'text'" marginBottom="20">
-                    <Label :text="item.placeholder" fontSize="12" color="#E74117" fontWeight="100" />
-                    <TextField :hint="item.placeholder" v-model="item.model" :keyboardType="item.keyboard" class="input" />
-                </StackLayout>
-
-                <StackLayout v-if="item.type == 'date'">
-                    <Label :text="item.placeholder" fontSize="12" color="#E74117" fontWeight="100" />
-                    <DatePickerField :date="item.model" :hint="item.placeholder" class="input"></DatePickerField>
-                </StackLayout>
-
-                <StackLayout orientation="horizontal" paddingTop="10" v-if="item.type == 'checkbox'">
-                    <CheckBox
-                    :borderColor="'#E74117'"
-                    v-model="item.model"
-                    ></CheckBox>
-                   
-                    <Label :text="item.placeholder" fontSize="14" textDecoration="underline"  />
-                </StackLayout>
-            </StackLayout>
-        </StackLayout>
-        
-        <StackLayout row="2" padding="10 10 20 10" >           
-          <StackLayout class="card" padding="15 20" @tap="onAction" background="#E74117" >
-            <label 
-              textAlignment="center"
-              color="white"
-              fontWeight="900"
-              fontSize="20"
-              :text="'CONTINUAR'" 
-            />
-          </StackLayout>
-        </StackLayout>
-      </GridLayout>
-    </Page>
   </template>
   
   <script lang="ts">
     import Vue from "nativescript-vue";
     import { Application, Color, Utils } from '@nativescript/core'
     import { infoPersonal } from '~/data/profile'
-  import CheckBox from '~/components/components/modules/checkbox.vue'
+    
+    import CheckBox from '~/components/components/modules/checkbox.vue'
+    import layoutPage from "~/components/pages/reserva/layoutPage.vue";
+    import { isAuthenticated, Authenticated } from '~/data/auth'
+    import { Dialogs } from '@nativescript/core'
+    import Inputs from '~/components/components/modules/inputs.vue'
+
     export default Vue.extend({
+      props:{
+        meta:{
+          type: Object,
+          default() {
+            return {
+              button: 'Continuar',
+              inputsCustom: {}
+            }
+          }
+        },
+        prox_ruta:{
+          type: String,
+          default: ''
+        }
+      },
       data(){
         return{
-            inputs: infoPersonal.inputs
+            inputs: infoPersonal.inputs,
+            loading: false,
+            reload: true
         }
       },
       components:{
-        CheckBox
+        CheckBox, layoutPage, Inputs
+      },
+      watch:{
+        errors(to){
+          console.log('errrs', to)
+        }
       },
       computed: {
         message() {
@@ -70,20 +65,82 @@
         },
         isDark(){
           return Application.systemAppearance() === 'dark'
+        },
+        errors(){
+          return infoPersonal.errors
         }
       },
       created(){
         
       },
       mounted(){
-        // console.log(this.homeView)
-  
+        console.log('this.meta', this.meta)
+        if(Object.keys(this.meta.inputsCustom).length > 0){
+          for (const key in this.meta.inputsCustom) {
+              const element = this.meta.inputsCustom[key];
+              this.inputs.find((e)=> e.name == key).isView = element
+          }
+        }
+        this.onreload()
+        this.loading = true
+        infoPersonal.onGetInfoPersonal().then((response)=>{
+          this.loading = false
+          // console.log('onGetInfoPersonal response', response)
+          infoPersonal.setInputs(response.data.info_personal)
+        })
+        
+        // this.$navigator.navigate('/auth/login' )
       },
       methods: {
         onAction() {
-          this.$navigator.navigate('/payment' )
+          // this.$navigator.navigate('/payment')
+          // this.$navigator.navigate('/auth/create_password')
           // console.log(this.homeView)
           // this.$navigateTo('reserva');
+        },
+        onreload(){
+          this.reload = false
+            setTimeout(() => {
+              this.reload =true
+            }, 1);
+        },
+        onButtonAction(){
+
+          if(this.meta.onActionRoute!= undefined){
+              this.loading = true
+            infoPersonal.onSaveInfoPersonal().then((response)=>{
+              this.loading = false
+              alert(JSON.stringify(response.data.info_personal))
+            }).catch((error)=>{
+
+            })
+            return
+          }
+          if(!infoPersonal.validate()){
+            this.reload = false
+            setTimeout(() => {
+              this.reload =true
+            }, 1);
+            return 
+          }
+
+          if(isAuthenticated()){
+            this.$navigator.navigate('/payment' )
+          }else{
+            this.$navigator.navigate('/auth/create_password', { props: { prox_ruta: '/payment' }} )
+
+            // if(infoPersonal.validate()){
+            //   Authenticated()
+            // }else{
+            //   Dialogs.alert({
+            //     title: 'Alert!',
+            //     message: 'Hay datos de su informacion personal que son requeridos',
+            //     okButtonText: 'OK',
+            //     cancelable: true,
+            //   }) 
+            // }
+          }
+          
         }
       }
     });

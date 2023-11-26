@@ -6,18 +6,20 @@
       @buttonAction="onButtonAction"
     >
 
-      <Label row="0" marginLeft="10" marginBottom="10" text="Confirma tu reserva y vive la mejor de tus aventuras con nosotros." textWrap />  
+      <Label class="text" row="0" marginLeft="10" marginBottom="10" text="Confirma tu reserva y vive la mejor de tus aventuras con nosotros." textWrap />  
     
       <GridLayout rows="auto,*,auto" row="1">
           <CardCocheSelect row="0" :plan="plan" :coche="coche"/>
           <CardOficinaSelect row="1" :recogida="recogida" :devolucion="devolucion" background=""/>
+            
             <GridLayout row="2" columns="*,auto" padding="10" background="">
                 <StackLayout orientation="horizontal" col="0" >
                   <Image src="res://card" width="30" stretch="aspectFit" marginRight="5" />
-                  <Label :text="`Total a pagar Plan Basic por 6 dìas `"  fontWeight="200" fontSize="16" textWrap />
+                  <Label class="text" :text="`Total a pagar Plan Basic por ${dias} dìas `"  fontWeight="200" fontSize="16" textWrap />
                 </StackLayout>
-                <Label :text="`${plan.amount}`" fontWeight="900" fontSize="20" col="1" />
+                <Label :text="`${moneda((plan.amount * dias))}`" fontWeight="900" fontSize="20" col="1" class="text" />
             </GridLayout>
+
       </GridLayout>
 
     </layoutPage>
@@ -73,6 +75,9 @@
             coche(){
                 return coches.data.find((e)=> e.id == this.data.coche_id)
             },
+            dias(){
+              return reserva.getDifFechas().dias
+            },
             recogida(){
                 let obj = {
                     oficina: oficinas.data.find((e)=> e.id == reserva.recogida.oficina_id),
@@ -100,6 +105,17 @@
           },
           onButtonAction(){
             this.$navigator.navigate('/reserva/detalle_reserva', { props: { data: this.data } } )
+          },
+          moneda(value) {
+            value += '';
+            var x = value.split('.');
+            var x1 = x[0];
+            var x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + '.' + '$2');
+            }
+            return  x1 + x2 + '€' 
           }
         }
       });

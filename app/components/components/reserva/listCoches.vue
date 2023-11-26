@@ -12,13 +12,13 @@
                             <Image src="res://no_disponible" width="30" col="1" v-else />
                         </GridLayout>
                         <Label :text="item.detalle" fontSize="12" fontWeight="200" />
-                        <Image :src="item.imagen" width="70%" stretch="aspectFill" marginBottom="20" />
+                        <Image  class="text" :src="item.imagen" width="70%" stretch="aspectFill" marginBottom="20" />
                     </StackLayout>
 
                     <GridLayout columns="*,*,*">
-                        <label col="0" textAlignment="center" :text="item.config.amount" />
-                        <label col="1" textAlignment="center" :text="item.config.pasajeros" />
-                        <label col="2" textAlignment="center" :text="item.config.puertas" />
+                        <label  class="text" col="0" textAlignment="center" :text="item.config.amount" />
+                        <label class="text"  col="1" textAlignment="center" :text="item.config.pasajeros" />
+                        <label  class="text" col="2" textAlignment="center" :text="item.config.puertas" />
                     </GridLayout>
                     <GridLayout columns="*,*,*" :opacity="item.status ? '1':'.3'">
                         <StackLayout 
@@ -39,7 +39,7 @@
                                     :borderBottomLeftRadius="plan.borderBottomLeftRadius"
                                     :borderBottomRightRadius="plan.borderBottomRightRadius"
                                 >
-                                    <Label :text="`${plan.nombre} ${plan.amount}`" textAlignment="center" color="white" fontWeight="600" fontSize="14" />
+                                    <Label class="text" :text="`${plan.nombre} ${plan.amount}`" textAlignment="center" color="white" fontWeight="600" fontSize="14" />
                                 </StackLayout>
                             </StackLayout>
                         </StackLayout>

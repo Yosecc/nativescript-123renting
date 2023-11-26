@@ -5,7 +5,7 @@
       @buttonAction="onButtonAction"
     >
 
-      <Label row="0" marginLeft="10" marginBottom="10" text="Selecciona fecha y hora donde deseas recoger tu coche." textWrap />  
+      <Label class="text" row="0" marginLeft="10" marginBottom="10" text="Selecciona fecha y hora donde deseas recoger tu coche." textWrap />  
       <DateHour row="1" v-model="fechasRecogida" />
 
     </layoutPage>
@@ -21,10 +21,7 @@
       export default Vue.extend({
         data(){
           return{
-            fechasRecogida: {
-              date: moment().format('Y/M/D'),
-              time: '01:00' 
-            }
+            fechasRecogida: reserva.recogida.fecha
           }
         },
         watch:{
@@ -57,7 +54,20 @@
             this.$navigator.back()
           },
           onButtonAction(){
-            this.$navigator.navigate('/reserva/oficina_devolucion' )
+
+            const fecha = moment(`${reserva.recogida.fecha.date} ${reserva.recogida.fecha.time}`,'YYYY-MM-DD HH:mm')
+            const ahora = moment()
+
+            if (fecha.isAfter(ahora)) {
+              this.$navigator.navigate('/reserva/oficina_devolucion' )
+            } else if (fecha.isSame(ahora)) {
+              alert('Debe seleccionar una fecha en el futuro')
+              return
+            } else {
+              alert('Debe seleccionar una fecha en el futuro')
+              return
+            }
+            
           }
         }
       });

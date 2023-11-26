@@ -6,7 +6,7 @@
       @buttonAction="onButtonAction"
     >
 
-      <Label row="0" marginLeft="10" marginBottom="10" text="Nuestra flota se adapta a todos nuestros clientes y sus necesidades. " textWrap />  
+      <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Nuestra flota se adapta a todos nuestros clientes y sus necesidades. " textWrap />  
       <listCoches row="1" :data="list_coches" v-model="coche" @onChange="onChangeCoche" />
 
     </layoutPage>

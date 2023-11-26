@@ -4,9 +4,9 @@
        
         <GridLayout background="" row="0" padding="20">
             <FlexboxLayout flexDirection="column" justifyContent="center" alignItems="center" background="">
-                <Label text="¡EN HORA BUENA!" fontSize="40" fontWeight="600" textWrap textAlignment="center" marginBottom="0"/>
-                <Label text="Ahora disfruta de tu" fontSize="30" fontWeight="300" textWrap textAlignment="center" marginBottom="0"/>
-                <Label text="MEJOR VIAJE" fontSize="40" fontWeight="600" textWrap textAlignment="center" marginBottom="0"/>
+                <Label class="text" text="¡EN HORA BUENA!" fontSize="40" fontWeight="600" textWrap textAlignment="center" marginBottom="0"/>
+                <Label class="text" text="Ahora disfruta de tu" fontSize="30" fontWeight="300" textWrap textAlignment="center" marginBottom="0"/>
+                <Label class="text" text="MEJOR VIAJE" fontSize="40" fontWeight="600" textWrap textAlignment="center" marginBottom="0"/>
             </FlexboxLayout >
         </GridLayout>
 

@@ -2,7 +2,7 @@ import Vue from 'nativescript-vue'
 import Home from './components/pages/Home.vue'
 import Reserva from './components/pages/reserva/Reserva.vue'
 
-import App from './components/App'
+import App from './components/App.vue'
 
 import Navigator from 'nativescript-vue-navigator'
 import {routes} from './routes'
@@ -20,6 +20,9 @@ Vue.use(LottieView);
 
 import GoogleMaps from '@nativescript/google-maps/vue'
 Vue.use(GoogleMaps)
+
+import Pager from '@nativescript-community/ui-pager/vue';
+Vue.use(Pager);
 
 declare let __DEV__: boolean;
 
