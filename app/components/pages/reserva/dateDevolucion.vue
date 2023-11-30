@@ -1,11 +1,12 @@
 <template>
     <layoutPage 
-      :title="'Elige fecha y hora de devolución '"
-      :buttonname="'CONTINUAR'"
+      :title="$t('reserva.paso4.titulo')"
+      :buttonname="$t('continuar')"
+
       @buttonAction="onButtonAction"
     >
 
-      <Label class="text" row="0" marginLeft="10" marginBottom="10" text="Selecciona fecha y hora donde deseas recoger tu coche." textWrap />  
+      <Label class="text" row="0" marginLeft="10" marginBottom="10" :text="$t('reserva.paso4.subtitulo')" textWrap />  
       <DateHour row="1" v-model="fechas"  />
 
     </layoutPage>
@@ -65,18 +66,20 @@
               if (fechaDevolucionSelect.isAfter(fechaRecogidaSelect)) {
                 this.$navigator.navigate('/reserva/select_coche')
               } else if (fechaDevolucionSelect.isSame(fechaRecogidaSelect)) {
-                alert('Debe seleccionar una fecha/hora en el mayor a la fecha de recogida')
+                alert(this.$t('alert.message.fecharecogidamayor'))
                 return
               } else {
-                alert('Debe seleccionar una fecha/hora en el mayor a la fecha de recogida')
+                alert(this.$t('alert.message.fecharecogidamayor'))
                 return
               }
               
             } else if (fechaDevolucionSelect.isSame(ahora)) {
-              alert('Debe seleccionar una fecha en el futuro')
+              alert(this.$t('alert.message.seleteFechaFuturo'))
+
               return
             } else {
-              alert('Debe seleccionar una fecha en el futuro')
+              alert(this.$t('alert.message.seleteFechaFuturo'))
+
               return
             }
 

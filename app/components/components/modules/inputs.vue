@@ -105,7 +105,7 @@
       },
       watch:{
         inputsData(to){
-            console.log('inputsData to', to)
+            
             this.$emit('change', to)  
         },
       },

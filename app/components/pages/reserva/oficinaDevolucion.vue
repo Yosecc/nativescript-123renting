@@ -1,10 +1,10 @@
 <template>
     <layoutPage 
-      :title="'Elige tu oficina de devolución'"
-      :buttonname="'CONTINUAR'"
+      :title="$t('reserva.paso3.titulo')"
+      :buttonname="$t('continuar')"
       @buttonAction="onButtonAction"
     >
-      <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Selecciona la oficina donde deseas hacer la devolución."  textWrap />  
+      <Label row="0" class="text" marginLeft="10" marginBottom="10" text="$t('reserva.paso3.subtitulo')"  textWrap />  
       <Oficinas row="1" :name="'oficina_devolucion'" :data="oficinasData" v-model="oficina_id" />
     </layoutPage>
   </template>
@@ -52,7 +52,8 @@
           },
           onButtonAction(){
             if(reserva.devolucion.oficina_id == 0){
-              alert('Selecciona una oficina para continuar')
+              alert(this.$t('alert.message.selectTo',{ msg: this.$t('oficina') }))
+
               return
             }
             this.$navigator.navigate('/reserva/date_devolucion' )

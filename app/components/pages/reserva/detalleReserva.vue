@@ -1,12 +1,12 @@
 <template>
     <layoutPage 
-      :title="'Detalle de tu reserva'"
-      :buttonname="'CONFIRMAR'"
+      :title="$t('reserva.paso7.titulo')"
+      :buttonname="$t('continuar')"
       :view_button="true"
       @buttonAction="onButtonAction"
     >
 
-      <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Revisa los detalles de tu reserva." textWrap />  
+      <Label row="0" class="text" marginLeft="10" marginBottom="10" :text="$t('reserva.paso7.subtitulo')" textWrap />  
     
         <GridLayout row="1" rows="auto, *">
             <CardDetalleTable :plan="plan" :items="items" row="0" v-if="reload" />

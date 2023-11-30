@@ -3,19 +3,22 @@ export const home = {
     header: {
         title: [
             {
-                text: 'VIAJA',
+                text: 'home.title',
+                textTransform: 'uppercase',
                 fontSize: 60, 
                 fontWeight:"800",
                 color: '',
             },
             {
-                text: ' sin ',
+                text: 'home.title1',
+                textTransform: 'uppercase',
                 fontSize: 36,
                 fontWeight:"700",
                 color: '#E74117'   
             },
             {
-                text: 'LIMITES',
+                text: 'home.title2',
+                textTransform: 'uppercase',
                 fontSize: 60, 
                 fontWeight:"800",
                 color: ''
@@ -23,7 +26,7 @@ export const home = {
             },
         ],
         sub: {
-            text: 'Encuentra y alquila en sencillos pasos',
+            text: 'home.subtitle',
             fontSize: 14, 
             fontWeight:"400",
             color: '',
@@ -32,7 +35,7 @@ export const home = {
     },
     body:{
         button:{
-            text:"INICIA TU RESERVA",
+            text:"home.button",
             textAlignment:"center" , 
             color:"white" , 
             fontWeight:"900", 
@@ -45,7 +48,7 @@ export const home = {
         gridButtons: [
             {
                 textAlignment:"center",
-                text:"Flota" ,
+                text:"flota" ,
                 fontSize:"15%" ,
                 fontWeight:"800" ,
                 src:"res://car",
@@ -61,7 +64,7 @@ export const home = {
             },
             {
                 textAlignment:"center",
-                text:"Oficina" ,
+                text:"oficinas" ,
                 fontSize:"15%" ,
                 fontWeight:"800" ,
                 src:"res://edificio",
@@ -78,7 +81,7 @@ export const home = {
             },
             {
                 textAlignment:"center",
-                text:"Mis reservas" ,
+                text:"mis_reservas" ,
                 fontSize:"15%" ,
                 fontWeight:"800" ,
                 src:"res://reserve",
@@ -94,7 +97,7 @@ export const home = {
             },
             {
                 textAlignment:"center",
-                text:"Perfil" ,
+                text:"perfil" ,
                 fontSize:"15%" ,
                 fontWeight:"800" ,
                 src:"res://person",
@@ -117,7 +120,7 @@ export const home = {
         gridButtonsBottom:[
             {
                 textAlignment:"center",
-                text:"Contacto" ,
+                text:"contacto" ,
                 fontSize:"12" ,
                 fontWeight:"200" ,
                 src:"res://phone",
@@ -133,7 +136,7 @@ export const home = {
             },
             {
                 textAlignment:"center",
-                text:"Metodo de pago" ,
+                text:"metodo_de_pago" ,
                 fontSize:"12" ,
                 fontWeight:"200" ,
                 src:"res://card",
@@ -149,7 +152,7 @@ export const home = {
             },
             {
                 textAlignment:"center",
-                text:"Preguntas Frecuentes" ,
+                text:"preguntas_frecuentes" ,
                 fontSize:"12" ,
                 fontWeight:"200" ,
                 src:"res://interrogative",

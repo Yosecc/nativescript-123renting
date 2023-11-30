@@ -10,10 +10,12 @@
         "@nativescript/datetimepicker": "^2.1.13",
         "@nativescript/geolocation": "^8.3.1",
         "@nativescript/google-maps": "^1.6.0",
+        "@nativescript/localize": "^5.2.0",
         "moment": "^2.29.4",
         "nativescript-ui-listview": "^15.2.3",
         "nativescript-vue": "~2.9.0",
-        "nativescript-vue-navigator": "^1.2.0"
+        "nativescript-vue-navigator": "^1.2.0",
+        "vue-i18n": "^8.28.2"
     },
     "devDependencies": {
         "@nativescript/android": "8.5.4",

@@ -1,10 +1,10 @@
 <template>
   <layoutPage 
-    :title="'Elige tu oficina de recogida'"
-    :buttonname="'CONTINUAR'"
+    :title="$t('reserva.paso1.titulo')"
+    :buttonname="$t('continuar')"
     @buttonAction="onButtonAction"
   >
-    <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Selecciona la oficina donde deseas recoger tu coche."  textWrap />  
+    <Label row="0" class="text" marginLeft="10" marginBottom="10" :text="$t('reserva.paso1.subtitulo')"  textWrap />  
     <Oficinas row="1" :name="'oficina_recogida'" :data="oficinasData" v-model="oficina_id" />
   </layoutPage>
 </template>
@@ -52,7 +52,7 @@
         },
         onButtonAction(){
           if(reserva.recogida.oficina_id == 0){
-            alert('Selecciona una oficina para continuar')
+            alert(this.$t('alert.message.selectTo',{ msg: this.$t('oficina') }))
             return
           }
           this.$navigator.navigate('/reserva/date_recogida' )

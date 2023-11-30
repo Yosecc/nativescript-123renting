@@ -1,7 +1,7 @@
 <template>
     <layoutPage 
-      :title="'Contacto'"
-      :buttonname="'CONTINUAR'"
+      :title="$t('contacto')"
+      :buttonname="$t('continuar')"
       :view_button="false"
       @buttonAction="onButtonAction"
     >
@@ -23,15 +23,15 @@
             <GridLayout columns="*,*,*" row="1" marginTop="20">
                 <FlexboxLayout justifyContent="flex-start" padding="10 5 0 5" alignItems="center" flexDirection="column" col="0">
                     <Image src="res://clock" width="30" />
-                    <Label class="text" textAlignment="center" :text="'Lun. a Dom. 9:00 a 19:00'" fontWeight="200" fontSize="12" textWrap />
+                    <Label class="text" textAlignment="center" :text="$t('horario')" fontWeight="200" fontSize="12" textWrap />
                 </FlexboxLayout >
                 <FlexboxLayout justifyContent="flex-start" padding="10 5 0 5" alignItems="center" flexDirection="column" col="1">
                     <Image src="res://email" width="30" />
-                    <Label class="text" textAlignment="center" :text="'info@123renting.ad'" fontWeight="200" fontSize="12" textWrap />
+                    <Label class="text" textAlignment="center" :text="$t('email_contacto')" fontWeight="200" fontSize="12" textWrap />
                 </FlexboxLayout >
                 <FlexboxLayout justifyContent="flex-start" padding="10 5 0 5" alignItems="center" flexDirection="column" col="2">
                     <Image src="res://phone" width="30" />
-                    <Label class="text" textAlignment="center" :text="'+376 812330'" fontWeight="200" fontSize="12" textWrap />
+                    <Label class="text" textAlignment="center" :text="$t('phone_contacto')" fontWeight="200" fontSize="12" textWrap />
                 </FlexboxLayout >
             </GridLayout>
         </GridLayout>

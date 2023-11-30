@@ -1,79 +1,80 @@
 <template>
     <layoutPage 
-      :title="'Reserva'"
-      :buttonname="'CONTINUAR'"
+      :title="$t('reservaDetalle.reserva')"
+      :buttonname="$t('continuar')"
       :view_button="false"
       @buttonAction="onButtonAction"
     >
-        <!-- <Label row="0" class="text" marginLeft="10" marginBottom="0" text="" height="0"  textWrap />   -->
-        <ScrollView row="1">
-            <GridLayout rows="*">
-                <StackLayout padding="0">
-                    <StackLayout padding="10">
-                        <GridLayout class="card" columns="*,auto" padding="20">
-                            <StackLayout col="0" padding="0">
-                                <Label textWrap="true">
-                                    <FormattedString>
-                                        <Span text="Reserva " />
-                                        <Span :text="`#${reserva.id}`" fontWeight="bold" />
-                                    </FormattedString>
-                                </Label>
-                                <Label textWrap="true">
-                                    <FormattedString>
-                                        <Span text="Método de pago " />
-                                        <Span :text="paymentType" fontWeight="bold" />
-                                    </FormattedString>
-                                </Label>
-                            </StackLayout>
-                            <Label 
-                                class="text" 
-                                fontSize="12" 
-                                padding="5" 
-                                borderWidth="0.5" 
-                                borderRadius="5"
-                                :borderColor="status.color" 
-                                :text="status.text" 
-                                textTranform="uppercase" 
-                                :color="status.color" 
-                                fontWeight="900" 
-                                col="1" 
-                            />
-                        </GridLayout>
-                    </StackLayout>
-                    
-                    <CardCocheSelect row="0" :plan="plan" :coche="coche"/>
-                    <!-- <Label :text="JSON.stringify(oficinas.recogida)" textWrap /> -->
-                    <CardOficinaSelect row="1" 
-                        :recogida="{ oficina: { text: oficinas.recogida.text }, fecha: reserva.recogida.fecha }" 
-                        :devolucion="{ oficina: { text: oficinas.devolucion.text }, fecha: reserva.devolucion.fecha}" background="" 
-                    />
-                    
-                    <CardDetalleTable :plan="plan" :items="reserva.invoice.list" row="0" />
-                    <StackLayout padding="10">
-                        <GridLayout class="" columns="*,*" padding="20">
-                            <Button text="Factura"
-                                    borderRadius="5"
-                                    padding="5 20"
-                                    :backgroundColor="plan.backgroundColor"
-                                    color="white"
-                                    fontWeight="600"
-                                    fontSize="16"
-                                    horizontalAlignment="center" col="0" />
-                            <Button text="Contrato"
-                                    borderRadius="5"
-                                    padding="5 20"
-                                    :backgroundColor="plan.backgroundColor"
-                                    color="white"
-                                    fontWeight="600"
-                                    fontSize="16"
-                                    horizontalAlignment="center" col="1" />
-                        </GridLayout>
-                    </StackLayout>
+      <!-- <Label row="0" class="text" marginLeft="10" marginBottom="0" text="" height="0"  textWrap />   -->
+      <ScrollView row="1">
+        <GridLayout rows="*">
+          <StackLayout padding="0">
+            <StackLayout padding="10">
+              <GridLayout class="card" columns="*,auto" padding="20">
+                <StackLayout col="0" padding="0">
+                  <Label textWrap="true">
+                    <FormattedString>
+                      <Span :text="$t('reserva.reserva')" />
+                      <Span :text="`#${reserva.id}`" fontWeight="bold" />
+                    </FormattedString>
+                  </Label>
+                  <Label textWrap="true">
+                    <FormattedString>
+                      <Span :text="$t('reserva.metodo_de_pago')" />
+                      <Span :text="paymentType" fontWeight="bold" />
+                    </FormattedString>
+                  </Label>
                 </StackLayout>
-            </GridLayout>
-        </ScrollView>
+                <Label 
+                  class="text" 
+                  fontSize="12" 
+                  padding="5" 
+                  borderWidth="0.5" 
+                  borderRadius="5"
+                  :borderColor="status.color" 
+                  :text="status.text" 
+                  textTranform="uppercase" 
+                  :color="status.color" 
+                  fontWeight="900" 
+                  col="1" 
+                />
+              </GridLayout>
+            </StackLayout>
+            
+            <CardCocheSelect row="0" :plan="plan" :coche="coche"/>
+            <!-- <Label :text="JSON.stringify(oficinas.recogida)" textWrap /> -->
+            <CardOficinaSelect row="1" 
+              :recogida="{ oficina: { text: oficinas.recogida.text }, fecha: reserva.recogida.fecha }" 
+              :devolucion="{ oficina: { text: oficinas.devolucion.text }, fecha: reserva.devolucion.fecha}" background="" 
+            />
+            
+            <CardDetalleTable :plan="plan" :items="reserva.invoice.list" row="0" />
+            <StackLayout padding="10">
+              <GridLayout class="" columns="*,*" padding="20">
+                <Button :text="$t('reserva.factura')"
+                        borderRadius="5"
+                        padding="5 20"
+                        :backgroundColor="plan.backgroundColor"
+                        color="white"
+                        fontWeight="600"
+                        fontSize="16"
+                        horizontalAlignment="center" col="0" />
+                <Button :text="$t('reserva.contrato')"
+                        borderRadius="5"
+                        padding="5 20"
+                        :backgroundColor="plan.backgroundColor"
+                        color="white"
+                        fontWeight="600"
+                        fontSize="16"
+                        horizontalAlignment="center" col="1" />
+              </GridLayout>
+            </StackLayout>
+          </StackLayout>
+        </GridLayout>
+      </ScrollView>
     </layoutPage>
   </template>
+  
     
     <script lang="ts">
         import Vue from "nativescript-vue";

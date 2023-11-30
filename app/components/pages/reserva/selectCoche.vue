@@ -1,12 +1,12 @@
 <template>
     <layoutPage 
-      :title="'Selecciona tu coche'"
-      :buttonname="'CONTINUAR'"
+      :title="$t('reserva.paso5.titulo')"
+      :buttonname="$t('continuar')"
       :view_button="false"
       @buttonAction="onButtonAction"
     >
 
-      <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Selecciona el coche y el plan que más se ajuste a tí." textWrap />  
+      <Label row="0" class="text" marginLeft="10" marginBottom="10" :text="$t('reserva.paso5.subtitulo')" textWrap />  
       <listCoches row="1" :data="list_coches" v-model="coche" @onChange="onChangeCoche" />
 
     </layoutPage>
@@ -56,7 +56,6 @@
             this.$navigator.back()
           },
           onChangeCoche(){
-            console.log(this.coche)
             this.$navigator.navigate('/reserva/confirmacion', {props: { data: this.coche }})
           },
           onButtonAction(){

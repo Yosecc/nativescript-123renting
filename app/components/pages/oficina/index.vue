@@ -1,11 +1,11 @@
 <template>
     <layoutPage 
-      :title="'Nuestras oficinas'"
+      :title="$t('oficinaPage.title')"
       :buttonname="'CONTINUAR'"
       :view_button="false"
       @buttonAction="onButtonAction"
     >
-      <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Estamos esperando tu visita a nuestras oficinas."  textWrap es./>  
+      <Label row="0" class="text" marginLeft="10" marginBottom="10" :text="$t('oficinaPage.subtitle')"  textWrap es./>  
       <Oficinas row="1" :name="'oficina_recogida'" :data="oficinasData" v-model="oficina_id" mode="list" />
     </layoutPage>
   </template>

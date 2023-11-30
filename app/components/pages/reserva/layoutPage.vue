@@ -24,6 +24,7 @@
                 color="white"
                 fontWeight="900"
                 fontSize="20"
+                textTransform="uppercase"
                 :text="buttonname" 
               />
             </StackLayout>

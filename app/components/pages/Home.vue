@@ -2,34 +2,43 @@
   <Page name="home" ref="home" id="home" actionBarHidden="true" >
     <GridLayout rows="auto,*" v-if="Object.entries(homeView).length" class="coverImage">
 
-      <GridLayout row="0" padding="10">
-        <Image src="res://logo_white" v-if="isDark" width="100" paddingTop="10" />
-        <Image src="res://logo_black" v-else width="100" paddingTop="10" />
+      <GridLayout row="0" columns="*,auto,*" padding="10">
+        <StackLayout col="0" row="0"></StackLayout>
+        <StackLayout col="1" row="0">
+          <Image src="res://logo_white" v-if="isDark" width="100" paddingTop="10" />
+          <Image src="res://logo_black" v-else width="100" paddingTop="10" />
+        </StackLayout>
+        <FlexboxLayout height="40" justifyContent="flex-end" alignItems="center" col="2" row="0" >
+          <!-- <Label :text="$t('home.title')" /> -->
+
+          <Label text="Es/Ca" @tap="onChangeLanguage" alignSelf="center" class="text" margin="0" background="" borderRadius="3" color="#E74117" padding="5" borderWidth="0.5" borderColor="#E74117" />
+        </FlexboxLayout >
       </GridLayout>
 
       <GridLayout row="1" rows="auto,auto,*,auto,auto" padding="0 10">
         <!-- https://picsum.photos/200/300 -->
         <StackLayout v-if="!hasReserva" row="0" paddingBottom="10">
-          <Label :text="JSON.stringify(reservaActive)" />
-          <Label textAlignment="center" class="title" padding="0" margin="0" lineHeight="0" textWrap="true">
+          <!-- <Label :text="JSON.stringify(reservaActive)" /> -->
+          <Label textAlignment="center" class="title" padding="0" textTransform="uppercase" margin="0" lineHeight="0" textWrap="true">
             <FormattedString  >
               <Span 
                 v-for="(item, key) in homeView.header.title"
                 :key="`title-${key}`"
-                :text="`${item.text}`"
+                :text="`${$t(item.text)} `"
                 :fontSize="item.fontSize"
                 :fontWeight="item.fontWeight"
                 :color="item.color"
-                style="line-height: 0px;" 
+                style="line-height: 0px; text-transform: uppercase;" 
               />
             </FormattedString>
           </Label>
           <Label 
-            :text="homeView.header.sub.text" 
+            :text="$t(homeView.header.sub.text)" 
             :textAlignment="homeView.header.sub.textAlignment"
             :fontSize="homeView.header.sub.fontSize"
             :fontWeight="homeView.header.sub.fontWeight"
             :color="homeView.header.sub.color"
+
             class="title" 
             margin="0" 
             padding="0" 
@@ -47,7 +56,7 @@
               :color="homeView.body.button.color"
               :fontWeight="homeView.body.button.fontWeight"
               :fontSize="homeView.body.button.fontSize"
-              :text="homeView.body.button.text" 
+              :text="$t(homeView.body.button.text)" 
               @tap="logMessage"
               class="text"
             />
@@ -61,12 +70,12 @@
               :color="homeView.body.button.color"
               :fontWeight="homeView.body.button.fontWeight"
               :fontSize="homeView.body.button.fontSize"
-              :text="'Desbloquear coche'" 
+              :text="$t('desbloquear_coche')" 
               class="text"
             />
           </StackLayout>
 
-          <Label @tap="logMessage" text="Iniciar una nueva reserva" color="#E74117" textAlignment="center" fontWeight="900" margin="10" />
+          <Label @tap="logMessage" :text="$t('iniciar_una_nueva_reserva')" color="#E74117" textAlignment="center" fontWeight="900" margin="10" />
         </StackLayout>
         <!--  -->
         <WrapLayout row="2" >
@@ -87,11 +96,12 @@
               />
               <label 
                 :textAlignment="item.textAlignment" 
-                :text="item.text" 
+                :text="$t(item.text)" 
                 :fontSize="item.fontSize" 
                 :fontWeight="item.fontWeight" 
                 textWrap 
                 class="text"
+                textTransform="capitalize"
               />
             </FlexboxLayout>
           </StackLayout>
@@ -128,11 +138,14 @@
               />
               <label 
                 :textAlignment="item.textAlignment"
-                :text="item.text"
+                :text="$t(item.text)"
                 :fontSize="item.fontSize"
                 :fontWeight="item.fontWeight"
                 textWrap 
                 class="text"
+                textTransform="capitalize"
+
+
               />
             </FlexboxLayout>
           </FlexboxLayout> 
@@ -152,7 +165,7 @@
   import { Reservas, restaurarReserva } from "~/data/reserva";
   import cache from "~/plugins/cache";
   import CardReservacionVue from "~/components/components/reserva/CardReservacion.vue";
-  
+  import { Dialogs } from '@nativescript/core'
   export default Vue.extend({
   	mixins: [redirecMixin],
     data(){
@@ -179,9 +192,38 @@
       this.homeView = home
     },
     mounted(){
+
       this.reservaActive = Reservas.getReservaActive()
     },
     methods: {
+      onChangeLanguage(){
+        Dialogs.action({
+          title: this.$t('Select_a_language'),
+          message: '',
+          cancelButtonText: 'Cancel',
+          actions: ['English', 'Spanish', 'Catalan'],
+          cancelable: true,
+          destructiveActionsIndexes: [2],
+        }).then((result) => {
+          switch (result) {
+            case 'English':
+              this.$i18n.locale = 'en'
+              break;
+            case 'Spanish':
+              this.$i18n.locale = 'es'
+              break;
+            case 'Catalan':
+              this.$i18n.locale = 'ca'
+              break;
+            default:
+              break;
+          }
+          
+        })
+      },
+      // cambioIdioma(){
+      //   $i18n.locale = 'ja'
+      // },
       logMessage() {
         restaurarReserva()
         this.$navigator.navigate('/reserva/oficina_recogida' )

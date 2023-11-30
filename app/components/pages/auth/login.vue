@@ -11,23 +11,24 @@
             <Image src="res://logo_black" v-else width="250" paddingTop="10" />
         </GridLayout>
         <StackLayout row="2">
-            <Label class="text" text="Bienvenido a bordo." fontSize="30" fontWeight="900" textAlignment="center"/>
+            <Label class="text" :text="$t('login.title')" fontSize="30" fontWeight="900" textAlignment="center"/>
         </StackLayout>
         <StackLayout row="3" padding="30 20">
-            <Label class="text" text="Ingresa con tu email" fontWeight="600" textAlignment="center" marginBottom="20"/>
+            <Label class="text" :text="$t('login.labelInput')" fontWeight="600" textAlignment="center" marginBottom="20"/>
             <Inputs v-model="inputs" />
         </StackLayout>
         <StackLayout row="4" padding="40 0">
             <Label class="text"  textAlignment="center" fontSize="25" fontWeight="900" textWrap="true">
+              
                 <FormattedString>
-                    <Span text="Y alquila una " />
-                    <Span text="FURGONETA " fontSize="35" style="color: #E74117" />
+                    <Span :text="$t('y_alquila_una')" />
+                    <Span :text="$t('furgoneta')" fontSize="35" style="color: #E74117" />
                 </FormattedString>
             </Label>
             <Label class="text" textAlignment="center" fontSize="25" fontWeight="900" textWrap="true">
                 <FormattedString>
-                    <Span text="para tu próximo " />
-                    <Span text="VIAJE " fontSize="35" style="color: #E74117" />
+                    <Span :text="$t('para_tu_proximo')" />
+                    <Span :text="$t('viaje') " fontSize="35" style="color: #E74117; text-transform: uppercase " />
                 </FormattedString>
             </Label>
         </StackLayout>
@@ -38,7 +39,8 @@
               color="white"
               fontWeight="900"
               fontSize="20"
-              :text="'CONTINUAR'"
+              textTransform="uppercase"
+              :text="$t('continuar')"
               class="text"
             />
           </StackLayout>
@@ -102,8 +104,6 @@
           this.loading = true
           login.onValidaEmail().then((response)=>{
             this.loading = false
-
-            console.log('response',response)
 
             switch (response.status) {
               case 'error':

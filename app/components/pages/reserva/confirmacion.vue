@@ -1,12 +1,12 @@
 <template>
     <layoutPage 
-      :title="'Confirma tu reserva'"
-      :buttonname="'CONFIRMAR'"
+      :title="$t('reserva.paso6.titulo')"
+      :buttonname="$t('continuar')"
       :view_button="true"
       @buttonAction="onButtonAction"
     >
 
-      <Label class="text" row="0" marginLeft="10" marginBottom="10" text="Confirma tu reserva y vive la mejor de tus aventuras con nosotros." textWrap />  
+      <Label class="text" row="0" marginLeft="10" marginBottom="10" :text="$t('reserva.paso6.subtitulo')" textWrap />  
     
       <GridLayout rows="auto,*,auto" row="1">
           <CardCocheSelect row="0" :plan="plan" :coche="coche"/>
@@ -48,20 +48,9 @@
         },
         data(){
           return{
-            // list_coches: [],
-            // coche: {
-                // plan_id: 0,
-                // coche_id: 0
-            // }
           }
         },
         watch:{
-            // plan(to){
-            //     reserva.coche.plan_id = to
-            // },
-            // coche(to){
-            //     reserva.coche.coche_id = to
-            // },
         },
         components:{
             CardCocheSelect,
@@ -83,7 +72,6 @@
                     oficina: oficinas.data.find((e)=> e.id == reserva.recogida.oficina_id),
                     fecha: reserva.recogida.fecha
                 }
-                console.log('obj', obj, reserva)
                 return obj
             },
             devolucion(){

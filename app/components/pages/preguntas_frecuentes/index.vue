@@ -1,7 +1,7 @@
 <template>
     <layoutPage 
-      :title="'Preguntas frecuentes'"
-      :buttonname="'CONTINUAR'"
+      :title="$t('preguntaPage.title')"
+      :buttonname="$t('continuar')"
       :view_button="false"
       @buttonAction="onButtonAction"
     >

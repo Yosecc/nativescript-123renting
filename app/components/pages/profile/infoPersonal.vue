@@ -1,13 +1,13 @@
 <template>
     <layoutPage 
-      :title="'Información personal'"
+      :title="$t('infoPage.title')"
       :buttonname="meta.button"
       :view_button="true"
       :loading="loading"
       @buttonAction="onButtonAction"
       name="info_personal"
     >
-        <Label row="0" class="text" marginLeft="10" marginBottom="10" text="Completa tus datos personales."  textWrap />  
+        <Label row="0" class="text" marginLeft="10" marginBottom="10" :text="$t('infoPage.subtitle')"  textWrap />  
         <GridLayout  row="1">
         <ScrollView >
           <Inputs v-model="inputs"  v-if="reload" />

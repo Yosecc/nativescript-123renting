@@ -1,7 +1,7 @@
 <template>
     <layoutPage 
-      :title="'Mis reservas'"
-      :buttonname="'CONTINUAR'"
+      :title="$t('infoPage.title')"
+      :buttonname="$t('continuar')"
       :view_button="false"
       @buttonAction="onButtonAction"
     >

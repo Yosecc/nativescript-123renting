@@ -6,7 +6,7 @@
     import Vue from "nativescript-vue";
     import { Application, Color, Utils } from '@nativescript/core'
     import { home } from '~/data/home'
-  
+
     export default Vue.extend({
       data(){
         return{

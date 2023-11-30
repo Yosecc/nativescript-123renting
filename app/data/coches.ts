@@ -1,5 +1,20 @@
 import { ObservableArray } from '@nativescript/core/data/observable-array';
 
+interface Coche {
+    id: number;
+    marca: string;
+    detalle: string;
+    imagen: string;
+    config: {
+        pasajeros: string;
+        puertas: string;
+        basico: number,
+        medium: number,
+        premium: number
+    };
+    status: boolean;
+}
+
 export const coches = {
     data: new ObservableArray([
         {

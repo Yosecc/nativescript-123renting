@@ -1,60 +1,61 @@
 <template>
-    <Page name="code_validation" ref="code_validation" id="code_validation" actionBarHidden="true" >
-      <GridLayout rows="auto,auto,auto,*,auto" class="coverImage">
-        <GridLayout row="0" columns="auto, *, auto" padding="20" >
-          <Image col="0" @tap="onBack" src="~/assets/arrow_back.png" width="40" marginRight="10" />
-          <Label col="1" textAlignment="center" :text="''" class="text" fontWeight="600" fontSize="16" />
-          <Label col="2" width="40" height="40" background="transparent" />
-        </GridLayout>
-        <GridLayout row="1" padding="" marginBottom="10">
-          <LottieView row="0" height="200" src="candado.json" :loop="true" :autoPlay="true" @loaded="lottieViewLoaded"></LottieView>
-        </GridLayout>
-         <StackLayout row="2" padding="20">
-            <Label class="text" text="Introduce tu código de verificación" fontSize="20" fontWeight="400" textWrap textAlignment="center" marginBottom="20"/>
-            <Label class="text" textWrap="true" fontWeight="400" textAlignment="center">
-                <FormattedString>
-                    <Span text="Te hemos enviado tu código de verificación al correo eléctronico " />
-                    <Span :text="`${email} `" style="color: #E74117" />
-                </FormattedString>
-            </Label>
-        </StackLayout>
-        <StackLayout row="3" padding="30 20">
-            <Inputs v-model="inputs" />
-            <!-- <TextField hint="" v-model="code" keyboardType="number" maxLength="4" class="input code" /> -->
-        </StackLayout>
-        <!-- -->
-
-        <StackLayout row="4" padding="10 10 20 10" >
-            
-            <Label class="text" textAlignment="center" v-if="conteo > 0" fontWeight="300" marginBottom="20" textWrap="true">
-              <FormattedString>
-                <Span text="Envíar el código de nuevo en " />
-                <Span :text="conteo" style="color: #E74117" />
-              </FormattedString>
-            </Label>
-
-            <Label class="text" v-else textAlignment="center" fontWeight="800" marginBottom="20" textWrap="true" textDecoration="underline" @tap="reenviarCode">
-              <FormattedString>
-                <Span text="Reeviar codigo" />
-              </FormattedString>
-            </Label>
-
-            <StackLayout @tap="onAction"  v-if="!loading" class="card" padding="15 20" background="#E74117" >
-              <label 
-                textAlignment="center"
-                color="white"
-                fontWeight="900"
-                fontSize="20"
-                :text="'CONTINUAR'"
-                class="text"
-              />
-            </StackLayout>
-            <ActivityIndicator v-else busy="true" color="#E74117" />
-
-          </StackLayout>
+  <Page name="code_validation" ref="code_validation" id="code_validation" actionBarHidden="true">
+    <GridLayout rows="auto,auto,auto,*,auto" class="coverImage">
+      <GridLayout row="0" columns="auto, *, auto" padding="20">
+        <Image col="0" @tap="onBack" src="~/assets/arrow_back.png" width="40" marginRight="10" />
+        <Label col="1" textAlignment="center" :text="$t('codevalidation.introduce_tu_codigo_de_verificacion')" class="text" fontWeight="600" fontSize="16" />
+        <Label col="2" width="40" height="40" background="transparent" />
       </GridLayout>
-    </Page>
-  </template>
+
+      <GridLayout row="1" padding="" marginBottom="10">
+        <LottieView row="0" height="200" src="candado.json" :loop="true" :autoPlay="true" @loaded="lottieViewLoaded"></LottieView>
+      </GridLayout>
+
+      <StackLayout row="2" padding="20">
+        <Label class="text" :text="$t('codevalidation.introduce_tu_codigo_de_verificacion')" fontSize="20" fontWeight="400" textWrap textAlignment="center" marginBottom="20"/>
+        <Label class="text" textWrap="true" fontWeight="400" textAlignment="center">
+          <FormattedString>
+            <Span :text="$t('codevalidation.te_hemos_enviado_tu_codigo_de_verificacion_al_correo_electronico')" />
+            <Span :text="`${email} `" style="color: #E74117" />
+          </FormattedString>
+        </Label>
+      </StackLayout>
+
+      <StackLayout row="3" padding="30 20">
+        <Inputs v-model="inputs" />
+        <!-- <TextField hint="" v-model="code" keyboardType="number" maxLength="4" class="input code" /> -->
+      </StackLayout>
+
+      <StackLayout row="4" padding="10 10 20 10">
+        <Label class="text" textAlignment="center" v-if="conteo > 0" fontWeight="300" marginBottom="20" textWrap="true">
+          <FormattedString>
+            <Span :text="$t('codevalidation.enviar_el_codigo_de_nuevo_en')" />
+            <Span :text="conteo" style="color: #E74117" />
+          </FormattedString>
+        </Label>
+
+        <Label class="text" v-else textAlignment="center" fontWeight="800" marginBottom="20" textWrap="true" textDecoration="underline" @tap="reenviarCode">
+          <FormattedString>
+            <Span :text="$t('codevalidation.reeviar_codigo')" />
+          </FormattedString>
+        </Label>
+
+        <StackLayout @tap="onAction" v-if="!loading" class="card" padding="15 20" background="#E74117">
+          <label
+            textAlignment="center"
+            color="white"
+            fontWeight="900"
+            fontSize="20"
+            :text="$t('codevalidation.continuar')"
+            class="text"
+          />
+        </StackLayout>
+        <ActivityIndicator v-else busy="true" color="#E74117" />
+      </StackLayout>
+    </GridLayout>
+  </Page>
+</template>
+
   
   <script lang="ts">
     import Vue from "nativescript-vue";
