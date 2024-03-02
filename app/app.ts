@@ -15,14 +15,16 @@ Vue.use(RadListView);
 import DateTimePicker from '@nativescript/datetimepicker/vue'
 Vue.use(DateTimePicker);
 
-import LottieView from '@nativescript-community/ui-lottie/vue';
-Vue.use(LottieView);
+import Pager from '@nativescript-community/ui-pager/vue';
+Vue.use(Pager);
+
+Vue.registerElement('ImageCache', () => require('@ticnat/nativescript-image-cache').ImageCache); // now add this
+
+// import LottieView from '@nativescript-community/ui-lottie/vue';
+// Vue.use(LottieView);
 
 import GoogleMaps from '@nativescript/google-maps/vue'
 Vue.use(GoogleMaps)
-
-import Pager from '@nativescript-community/ui-pager/vue';
-Vue.use(Pager);
 
 import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
@@ -31,12 +33,14 @@ import { ja } from './i18n/ja'
 import { en } from './i18n/en'
 import { es } from './i18n/es'
 import { ca } from './i18n/ca'
+import { de } from './i18n/de'
 
 const messages = {
   en: en,
   ja: ja,
   es: es,
   ca: ca,
+  de: de
 }
 
 // Create VueI18n instance with options

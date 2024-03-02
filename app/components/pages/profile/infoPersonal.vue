@@ -78,16 +78,16 @@
         if(Object.keys(this.meta.inputsCustom).length > 0){
           for (const key in this.meta.inputsCustom) {
               const element = this.meta.inputsCustom[key];
-              this.inputs.find((e)=> e.name == key).isView = element
+              // this.inputs.find((e)=> e.name == key).isView = element
           }
         }
         this.onreload()
         this.loading = true
-        infoPersonal.onGetInfoPersonal().then((response)=>{
-          this.loading = false
-          // console.log('onGetInfoPersonal response', response)
-          infoPersonal.setInputs(response.data.info_personal)
-        })
+        // infoPersonal.onGetInfoPersonal().then((response)=>{
+        //   this.loading = false
+        //   // console.log('onGetInfoPersonal response', response)
+        //   infoPersonal.setInputs(response.data.info_personal)
+        // })
         
         // this.$navigator.navigate('/auth/login' )
       },
@@ -108,12 +108,12 @@
 
           if(this.meta.onActionRoute!= undefined){
               this.loading = true
-            infoPersonal.onSaveInfoPersonal().then((response)=>{
-              this.loading = false
-              alert(JSON.stringify(response.data.info_personal))
-            }).catch((error)=>{
+            // infoPersonal.onSaveInfoPersonal().then((response)=>{
+            //   this.loading = false
+            //   alert(JSON.stringify(response.data.info_personal))
+            // }).catch((error:any)=>{
 
-            })
+            // })
             return
           }
           if(!infoPersonal.validate()){

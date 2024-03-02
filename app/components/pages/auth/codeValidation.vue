@@ -8,7 +8,7 @@
       </GridLayout>
 
       <GridLayout row="1" padding="" marginBottom="10">
-        <LottieView row="0" height="200" src="candado.json" :loop="true" :autoPlay="true" @loaded="lottieViewLoaded"></LottieView>
+        <!-- <LottieView row="0" height="200" src="candado.json" :loop="true" :autoPlay="true" @loaded="lottieViewLoaded"></LottieView> -->
       </GridLayout>
 
       <StackLayout row="2" padding="20">
@@ -126,9 +126,9 @@
           this.$navigator.back()
         },
         lottieViewLoaded(args:any) {
-          this._lottieView = args.object;
-          this._lottieView.progress = 0.2
-          this._lottieView.speed = 1.2
+          // this._lottieView = args.object;
+          // this._lottieView.progress = 0.2
+          // this._lottieView.speed = 1.2
         },
         onAction() {
           this.loading = true

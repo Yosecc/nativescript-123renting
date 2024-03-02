@@ -83,11 +83,11 @@
         import CardCocheSelect from "~/components/components/reserva/CardCocheSelect.vue";
         import CardOficinaSelect from "~/components/components/reserva/CardOficinaSelect.vue";
         import CardDetalleTable from "~/components/components/reserva/CardDetalleTable.vue";
-        import reservaMixin from '~/components/mixins/reservaMixin'
+        // import reservaMixin from '~/components/mixins/reservaMixin'
         
 
     export default Vue.extend({
-        mixins: [reservaMixin],
+        mixins: [],
         props:{
             reserva: {}
         },
@@ -117,7 +117,7 @@
         mounted(){
         },
         methods: {
-            onItemTap(args){
+            onItemTap(args:any){
                 args.object.refresh()
             },
             onBack() {

@@ -11,77 +11,48 @@ interface Mejora {
     planes: Plan[];
 }
 
-export const mejoras: Mejora[] = [
-    {
-        name: 'Combustible',
-        id: 1,
-        planes: [
-            {
-                id: 1,
-                plan: 'Basic',
-                amount: 100,
-                incluido: false,
-            },
-            {
-                id: 2,
-                plan: 'Medium',
-                amount: 100,
-                incluido: false,
-            },
-            {
-                id: 3,
-                plan: 'Premium',
-                amount: 100,
-                incluido: true,
-            },
-        ],
-    },
-    {
-        name: 'Kilometraje ilimitado',
-        id: 2,
-        planes: [
-            {
-                id: 1,
-                plan: 'Basic',
-                amount: 100,
-                incluido: true,
-            },
-            {
-                id: 2,
-                plan: 'Medium',
-                amount: 100,
-                incluido: true,
-            },
-            {
-                id: 3,
-                plan: 'Premium',
-                amount: 100,
-                incluido: true,
-            },
-        ],
-    },
-    {
-        name: 'Coberturas de ruedas y lunas',
-        id: 3,
-        planes: [
-            {
-                id: 1,
-                plan: 'Basic',
-                amount: 67,
-                incluido: false,
-            },
-            {
-                id: 2,
-                plan: 'Medium',
-                amount: 100,
-                incluido: true,
-            },
-            {
-                id: 3,
-                plan: 'Premium',
-                amount: 100,
-                incluido: true,
-            },
-        ],
-    },
-];
+export interface Beneficio {
+    id: number;
+    descripcion: string;
+    precio: number;
+    basic: number;
+    medium: number;
+    premium: number;
+}
+
+interface Mejoras {
+    data: Mejora[],
+    addMejora: (data:  Beneficio[]) => void
+}
+
+export const mejoras: Mejoras = {
+    data: [],
+    addMejora(data){
+        this.data = data.map(element=>{
+            return {
+                name: element.descripcion,
+                id: element.id,
+                planes: [
+                    {
+                        id: 1,
+                        plan: 'Basic',
+                        amount: element.precio,
+                        incluido: element.basic ? true : false,
+                    },
+                    {
+                        id: 2,
+                        plan: 'Medium',
+                        amount: element.precio,
+                        incluido: element.medium ? true : false,
+                    },
+                    {
+                        id: 3,
+                        plan: 'Premium',
+                        amount: element.precio,
+                        incluido: element.premium ? true : false,
+                    },
+                ],
+            }
+        })
+    }
+};

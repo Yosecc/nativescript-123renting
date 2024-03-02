@@ -58,7 +58,7 @@
         mounted(){
         },
         methods: {
-            onItemTap(args){
+            onItemTap(args:any){
                 this.preguntas_frecuentes.find((e)=> e.id == args.item.id ).status = !this.preguntas_frecuentes.find((e)=> e.id == args.item.id ).status
                 // this.preguntas_frecuentes.find((e)=> e.id == args.item.id ).status = !this.preguntas_frecuentes.find((e)=> e.id == args.item.status ).status
                 args.object.refresh()

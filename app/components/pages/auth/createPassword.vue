@@ -8,7 +8,7 @@
     name="info_personal"
   >
     <GridLayout row="0" rows="auto,auto" padding="0" marginBottom="10">
-      <LottieView row="0" height="300" src="candado.json" :loop="true" :autoPlay="true" @loaded="lottieViewLoaded"></LottieView>
+      <!-- <LottieView row="0" height="300" src="candado.json" :loop="true" :autoPlay="true" @loaded="lottieViewLoaded"></LottieView> -->
       <Label class="text" row="1" :text="$t('crea_tu_contrasena')" fontSize="20" fontWeight="600" textWrap textAlignment="center" marginBottom="20"/>
     </GridLayout>
     <ScrollView  row="1">

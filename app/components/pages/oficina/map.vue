@@ -34,15 +34,15 @@
                       <GridLayout dock="top" columns="*,*,*" marginTop="20">
                         <FlexboxLayout justifyContent="flex-start" padding="10 5 0 5" alignItems="center" flexDirection="column" col="0">
                           <Image src="res://clock" width="30" />
-                          <Label class="text" textAlignment="center" :text="'Lun. a Dom. 9:00 a 19:00'" fontWeight="200" fontSize="12" textWrap />
+                          <Label class="texto" textAlignment="center" :text="'Lun. a Dom. 9:00 a 19:00'" fontWeight="200" fontSize="12" textWrap />
                         </FlexboxLayout >
                         <FlexboxLayout justifyContent="flex-start" padding="10 5 0 5" alignItems="center" flexDirection="column" col="1">
                           <Image src="res://email" width="30" />
-                          <Label class="text" textAlignment="center" :text="'info@123renting.ad'" fontWeight="200" fontSize="12" textWrap />
+                          <Label class="texto" textAlignment="center" :text="'info@123renting.ad'" fontWeight="200" fontSize="12" textWrap />
                         </FlexboxLayout >
                         <FlexboxLayout justifyContent="flex-start" padding="10 5 0 5" alignItems="center" flexDirection="column" col="2">
                           <Image src="res://phone" width="30" />
-                          <Label class="text" textAlignment="center" :text="'+376 812330'" fontWeight="200" fontSize="12" textWrap />
+                          <Label class="texto" textAlignment="center" :text="'+376 812330'" fontWeight="200" fontSize="12" textWrap />
                         </FlexboxLayout >
                       </GridLayout>
                     </StackLayout>
@@ -65,7 +65,7 @@
       import { CoreTypes } from '@nativescript/core' 
       import { Dialogs, HttpResponse, Http } from "@nativescript/core";
       // import { reserva } from '~/data/reserva'
-      import { MapView, Marker, GoogleMap, MarkerOptions, CircleOptions, Circle, Polyline ,CameraUpdate } from '@nativescript/google-maps';
+      import { MapView, Marker, GoogleMap, MarkerOptions, CircleOptions, Circle, Polyline ,CameraUpdate, PolylineOptions,Coordinate } from '@nativescript/google-maps';
       // import Oficinas from '~/components/components/reserva/Oficinas.vue'
       // import layoutPage from "~/components/pages/reserva/layoutPage.vue";
   
@@ -81,13 +81,13 @@
             oficinasData:  oficinas.data,
             oficina_id: 0,
             keyActive: 0,
-            lat: 0 ,
-            lng: 0 ,
+            lat: 0,
+            lng: 0,
             my_lat: 0,
             my_lng: 0,
-            map: null,
-            marcadores: [],
-            polilineas: []
+            map: {} as GoogleMap ,
+            marcadores: [] as Marker[],
+            polilineas: [] as Polyline[]
           }
         },
         watch:{
@@ -137,12 +137,12 @@
                 const coordinates = result.routes[0].overview_polyline.points;
 
                 let decodedCoordinates = this.decodePolyline(coordinates);
-                decodedCoordinates = decodedCoordinates.map((e)=>{
-                  return {
-                    lat: e.latitude,
-                    lng: e.longitude
-                  }
-                })
+                // decodedCoordinates = decodedCoordinates.map((e)=>{
+                //   return {
+                //     lat: e.latitude,
+                //     lng: e.longitude
+                //   };
+                // })
                 const polinie = this.addPolyline(this.map, { points: decodedCoordinates, color: '#0091EA' })
                 this.polilineas.push(polinie)
 
@@ -155,11 +155,11 @@
               }
             )
           },
-          decodePolyline(encoded) {
+          decodePolyline(encoded:any): Coordinate[] {
             // Función para decodificar la polyline
             let index = 0;
             const len = encoded.length;
-            const array = [];
+            const array: Coordinate[] = [];
             let lat = 0;
             let lng = 0;
 
@@ -187,7 +187,7 @@
               const dlng = (result & 1) !== 0 ? ~(result >> 1) : (result >> 1);
               lng += dlng;
 
-              const point = { latitude: lat / 1e5, longitude: lng / 1e5 };
+              const point: Coordinate  = { lat: lat / 1e5, lng: lng / 1e5 };
               array.push(point);
             }
             return array;
@@ -218,23 +218,37 @@
           },
           moveTo(key:number){
             const oficina = this.oficinasData.find((e,i)=> i == key);
-            this.lat = oficina.position.lat;
-            this.lng = oficina.position.lng;
-            (this.$refs.pager.nativeView as Pager).scrollToIndexAnimated(key, true);
-            if(this.map!=null){
+            this.lat = oficina.latitud;
+            this.lng = oficina.longitud;
+            if(!this.$refs.pager){
+              return
+            }
+            const pagerRef = this.$refs.pager;
+
+            if (pagerRef instanceof Pager) {
+              pagerRef.scrollToIndexAnimated(key, true);
+            } else {
+              // Manejar el caso en que $refs.pager no es una instancia de Pager
+            }
+            // (this.$refs.pager.nativeView as Pager).scrollToIndexAnimated(key, true);
+
+            if(this.map){
               if(this.marcadores.length){
                 this.marcadores.forEach(element=>{
+                  
                   this.map.removeMarker(element)
                 })
                 this.marcadores = []
               }
               if(this.polilineas.length){
                 this.polilineas.forEach(element=>{
-                  this.map.removePolyline(element)
+                  if(element){
+                    this.map.removePolyline(element)
+                  }
                 })
                 this.polilineas = []
               }
-              const markerOficina = this.addMarker(this.map, {position: {lat: this.lat , lng: this.lng}, color: '#E74117', title: oficina.text })
+              const markerOficina = this.addMarker(this.map, {position: { lat: this.lat, lng: this.lng }, color: '#E74117', title: oficina.text })
               this.marcadores.push(markerOficina)
               if(this.my_lat!=0 && this.my_lng!=0){
                 const markerMy = this.addMarker(this.map, {position: {lat: this.my_lat , lng: this.my_lng}, color: '#0091EA', title: 'Yo|My'})
@@ -243,7 +257,7 @@
                 // this.getApiGoogle()
               }  
             }
-            console.log('marcadores',this.marcadores)
+            // console.log('marcadores',this.marcadores)
           },
           onBack() {
             this.$navigator.back()
@@ -251,7 +265,7 @@
           onButtonAction(){
             // this.$navigator.navigate('/reserva/date_recogida')
           },
-          onReady({map}){
+          onReady({map}: { map: GoogleMap }){
             console.log('onReady',map)
             this.map = map
             // this.map.myLocationEnabled = true
@@ -260,7 +274,7 @@
 
             // }
           },
-          onTap(args){
+          onTap(args:any){
             console.log('onTap',args)
           },
           onLongPress(){

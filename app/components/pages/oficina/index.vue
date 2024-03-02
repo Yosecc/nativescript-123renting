@@ -6,7 +6,12 @@
       @buttonAction="onButtonAction"
     >
       <Label row="0" class="text" marginLeft="10" marginBottom="10" :text="$t('oficinaPage.subtitle')"  textWrap es./>  
-      <Oficinas row="1" :name="'oficina_recogida'" :data="oficinasData" v-model="oficina_id" mode="list" />
+      <Oficinas row="1"  v-if="oficinasData.length" :name="'oficina_recogida'" :data="oficinasData" v-model="oficina_id" mode="list" />
+      <StackLayout row="1" v-if="!oficinasData.length">
+        <StackLayout class="skeleton card" width="100%" height="100" marginBottom="16"></StackLayout>
+        <StackLayout class="skeleton card" width="100%" height="100" marginBottom="16"></StackLayout>
+        <StackLayout class="skeleton card" width="100%" height="100" marginBottom="16"></StackLayout>
+      </StackLayout>
     </layoutPage>
   </template>
     
@@ -18,11 +23,12 @@
   
       import Oficinas from '~/components/components/reserva/Oficinas.vue'
       import layoutPage from "~/components/pages/reserva/layoutPage.vue";
-  
+      import Api from '~/services/Api'
+
       export default Vue.extend({
         data(){
           return{
-            oficinasData:  [],
+            oficinasData:  oficinas.data,
             oficina_id: 0,
           }
         },
@@ -44,7 +50,12 @@
           }
         },
         created(){
-          this.oficinasData = oficinas.data
+          if(oficinas.data.length == 0){
+            Api.get('/oficinas',{ idregion: 1 }).then((response)=>{
+              this.oficinasData = response.data.oficinas
+              oficinas.data = response.data.oficinas
+            })
+          }
         },
         mounted(){
           // console.log(this.homeView)

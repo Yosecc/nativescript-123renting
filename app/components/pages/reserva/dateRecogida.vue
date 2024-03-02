@@ -26,9 +26,11 @@
         },
         watch:{
           date(to){
+            console.log('date',to)
             reserva.recogida.fecha.date = to
           },
           time(to){
+            console.log('time',to)
             reserva.recogida.fecha.time = to
           }
         },
@@ -54,10 +56,13 @@
             this.$navigator.back()
           },
           onButtonAction(){
-
+            console.log('ss',`${reserva.recogida.fecha.date} ${reserva.recogida.fecha.time}`)
             const fecha = moment(`${reserva.recogida.fecha.date} ${reserva.recogida.fecha.time}`,'YYYY-MM-DD HH:mm')
+            // const fecha = moment(`${reserva.recogida.fecha.date} 22:00`,'YYYY-MM-DD HH:mm')
             const ahora = moment()
-
+            console.log('fe',fecha,ahora)
+            // if (fecha.isAfter(moment().endOf('day'))) {
+            // if (fecha.hour() > ahora.hour() || (fecha.hour() === ahora.hour() && fecha.minute() > ahora.minute())) {
             if (fecha.isAfter(ahora)) {
               this.$navigator.navigate('/reserva/oficina_devolucion' )
             } else if (fecha.isSame(ahora)) {

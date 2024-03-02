@@ -11,7 +11,7 @@
       </GridLayout>
 
       <GridLayout background="" row="1" padding="0" marginBottom="10">
-        <LottieView height="400" src="car.json" :loop="true" :autoPlay="true"  @loaded="lottieViewLoaded"></LottieView>
+        <!-- <LottieView height="400" src="car.json" :loop="true" :autoPlay="true"  @loaded="lottieViewLoaded"></LottieView> -->
       </GridLayout>
 
     </GridLayout>

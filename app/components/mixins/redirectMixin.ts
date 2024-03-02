@@ -1,5 +1,5 @@
 import { isAuthenticated } from "~/data/auth";
-export default {
+export const redirecMixin = {
     filters: {
 
     },
@@ -7,7 +7,7 @@ export default {
 
     },
     methods: {
-        redirect(redirect) {
+        redirect(redirect:any) {
             const isAuth = redirect.meta != undefined ? redirect.meta.auth : false;
 
             console.log('redirect', redirect, isAuth, isAuthenticated())

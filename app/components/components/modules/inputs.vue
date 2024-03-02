@@ -86,7 +86,20 @@
     import Vue from "nativescript-vue";
     import { Application, Color, Utils } from '@nativescript/core'
     import CheckBox from '~/components/components/modules/checkbox.vue'
-
+    interface Input {
+        type: string;
+        name: string;
+        keyboard: string;
+        placeholder: string;
+        model: string | number | boolean;
+        required: boolean;
+        error: boolean;
+        xClass?: string;
+        secure?: boolean;
+        maxLength?: number;
+        isView?: boolean;
+        isPlaceholder?: boolean;
+    }
     export default Vue.extend({
         model: {
             prop: 'inputs',
@@ -100,7 +113,7 @@
         },
       data(){
         return{
-            inputsData: this.inputs,
+            inputsData: this.inputs as Input[],
         }
       },
       watch:{
@@ -127,7 +140,8 @@
           if(id!=undefined){
             id = id.split('-');
             id = id[1];
-            this.inputsData._array[id].model = args.value
+            
+            this.inputsData[id].model = args.value
             this.$emit('change',this.inputsData )
           }
         },

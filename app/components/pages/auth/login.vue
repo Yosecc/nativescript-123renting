@@ -117,7 +117,7 @@
               
               case 'success':
 
-                infoPersonal.setInputs(response.data.info_personal)
+                // infoPersonal.setInputs(response.data.info_personal)
                 this.$navigator.navigate(this.prox_ruta)
                 
                 break;

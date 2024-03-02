@@ -53,7 +53,7 @@
         mounted(){
         },
         methods: {
-            onItemTap(args){
+            onItemTap(args:any){
                 args.object.refresh()
             },
             onBack() {

@@ -1,6 +1,6 @@
 <template>
   <Page name="home" ref="home" id="home" actionBarHidden="true" >
-    <GridLayout rows="auto,*" v-if="Object.entries(homeView).length" class="coverImage">
+    <GridLayout rows="auto,*" v-if="isRender" class="coverImage">
 
       <GridLayout row="0" columns="*,auto,*" padding="10">
         <StackLayout col="0" row="0"></StackLayout>
@@ -160,24 +160,32 @@
   import Vue from "nativescript-vue";
   import { Application, Color, Utils } from '@nativescript/core'
   import { home } from '~/data/home'
-  import codeValidation from '~/components/pages/auth/codeValidation.vue'
-  import redirecMixin from '~/components/mixins/redirectMixin'
+  import type { homeDisplay } from '~/data/home'
+  // import codeValidation from '~/components/pages/auth/codeValidation.vue'
+  // import {redirecMixin} from '~/components/mixins/redirectMixin'
+  
   import { Reservas, restaurarReserva } from "~/data/reserva";
+  import type { Reserva } from "~/data/reserva";
+  
   import cache from "~/plugins/cache";
   import CardReservacionVue from "~/components/components/reserva/CardReservacion.vue";
   import { Dialogs } from '@nativescript/core'
+  import { isAuthenticated } from "~/data/auth";
   export default Vue.extend({
-  	mixins: [redirecMixin],
+  	mixins: [],
     data(){
       return{
-        homeView: {},
-        reservaActive: undefined
+        homeView: {} as homeDisplay ,
+        reservaActive: undefined as Reserva | undefined,
       }
     },
     components:{
       CardReservacionVue
     },
     computed: {
+      isRender(){
+        return Object.entries(this.homeView).length
+      },
       message() {
         return "Blank {N}-Vue app";
       },
@@ -192,13 +200,12 @@
       this.homeView = home
     },
     mounted(){
-
       this.reservaActive = Reservas.getReservaActive()
     },
     methods: {
       onChangeLanguage(){
         Dialogs.action({
-          title: this.$t('Select_a_language'),
+          title: `${this.$t('Select_a_language')}`,
           message: '',
           cancelButtonText: 'Cancel',
           actions: ['English', 'Spanish', 'Catalan'],
@@ -229,7 +236,17 @@
         this.$navigator.navigate('/reserva/oficina_recogida' )
       },
       onRedirect(redirect:any){
-        this.redirect(redirect)
+        const isAuth = redirect.meta != undefined ? redirect.meta.auth : false;
+
+        console.log('redirect', redirect, isAuth, isAuthenticated())
+        if (isAuth) {
+            if (!isAuthenticated()) {
+                this.$navigator.navigate('/auth/login', { props: { prox_ruta: redirect.route } })
+                return
+            }
+        }
+        // console.log('this.$navigateTo',this.$navigateTo(codeValidation))
+        this.$navigator.navigate(redirect.route, { props: redirect.meta != undefined ? { meta: redirect.meta } : {} })
       }
     }
   });

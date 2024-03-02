@@ -2,7 +2,7 @@
   <Page name="payment" ref="payment" id="payment" actionBarHidden="true">
     <GridLayout rows="auto,*,auto" class="coverImage">
       <GridLayout row="0" padding="0" marginBottom="10">
-        <LottieView height="300" src="creditcards.json" :loop="true" :autoPlay="true" @loaded="lottieViewLoaded"></LottieView>
+        <!-- <LottieView height="300" src="creditcards.json" :loop="true" :autoPlay="true" @loaded="lottieViewLoaded"></LottieView> -->
       </GridLayout>
       <StackLayout row="1" padding="20">
         <Label class="text" :text="$t('payment.paga_tu_reserva')" fontSize="20" fontWeight="600" textWrap textAlignment="center" marginBottom="20"/>
@@ -66,6 +66,7 @@
     import Vue from "nativescript-vue";
     import { Application, Color, Utils } from '@nativescript/core'
     import { reserva, Reservas } from "~/data/reserva";
+    import type { paymentType } from "~/data/reserva";
     // import { home } from '~/data/home'
     export default Vue.extend({
       data(){
@@ -99,9 +100,9 @@
       },
       methods: {
         lottieViewLoaded(args:any) {
-          this._lottieView = args.object;
-          this._lottieView.progress = 0.2
-          this._lottieView.speed = 1.2
+          // this._lottieView = args.object;
+          // this._lottieView.progress = 0.2
+          // this._lottieView.speed = 1.2
         },
         idRand(){
           const min = 1;
@@ -109,7 +110,7 @@
           const randomNumberInRange = Math.floor(Math.random() * (max - min + 1)) + min;
           return randomNumberInRange
         },
-        onAction(type) {
+        onAction(type:paymentType) {
           
           reserva.invoice.payment_type = type
           
@@ -141,7 +142,7 @@
           this.$navigator.navigate('/payment/success')
 
         },
-        moneda(value) {
+        moneda(value:any) {
             value += '';
             var x = value.split('.');
             var x1 = x[0];

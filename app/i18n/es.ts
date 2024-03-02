@@ -11,7 +11,7 @@ export const es = {
     oficinas: 'oficinas',
     mis_reservas: 'mis reservas',
     perfil: 'perfil',
-    contacto: 'contacto',
+    contacto: 'Contacto',
     metodo_de_pago: 'metodo de pago',
     preguntas_frecuentes: 'preguntas frecuentes',
     Select_a_language: 'Selecciona un idioma',

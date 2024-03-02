@@ -1,6 +1,6 @@
 <template>
     <StackLayout padding="10">
-        <StackLayout class="card" padding="20">
+        <StackLayout class="card" v-if="coche" padding="20">
             <StackLayout background="" >
                 <GridLayout columns="*, auto">
                     <Label class="text" :text="coche.marca" fontSize="16" fontWeight="900" col="0" />
@@ -63,16 +63,18 @@
   
   <script lang="ts">
     import Vue from "nativescript-vue";
-    import reservaMixin from '~/components/mixins/reservaMixin'
-    import { reserva , Reserva} from "~/data/reserva";
-
+    // import reservaMixin from '~/components/mixins/reservaMixin'
+    import { reserva } from "~/data/reserva";
+    import type { Reserva } from "~/data/reserva";
+    
     export default Vue.extend({
-        mixins: [reservaMixin],
+        mixins: [],
         props:{
-            reserva: {},
+            reserva: { }
         },
       data(){
         return{
+            reservaData: this.reserva as Reserva
         }
       },
       created(){
@@ -85,7 +87,7 @@
             this.$navigator.navigate('/profile/reservaDetalle', { props: { reserva: this.reserva } } )
         },
         concretarReserva(){
-            reserva.procesarReserva(this.reserva)
+            reserva.procesarReserva(this.reservaData)
             this.$navigator.navigate('/payment')
 
         }

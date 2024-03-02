@@ -27,7 +27,7 @@
                 </FlexboxLayout >
                 <FlexboxLayout justifyContent="flex-start" padding="10 5 0 5" alignItems="center" flexDirection="column" col="1">
                     <Image src="res://email" width="30" />
-                    <Label class="text" textAlignment="center" :text="$t('email_contacto')" fontWeight="200" fontSize="12" textWrap />
+                    <Label class="text" textAlignment="center" v-if="parametros" :text="parametros.email" fontWeight="200" fontSize="12" textWrap />
                 </FlexboxLayout >
                 <FlexboxLayout justifyContent="flex-start" padding="10 5 0 5" alignItems="center" flexDirection="column" col="2">
                     <Image src="res://phone" width="30" />
@@ -49,14 +49,18 @@
       import Oficinas from '~/components/components/reserva/Oficinas.vue'
       import layoutPage from "~/components/pages/reserva/layoutPage.vue";
   
+      import { home } from '~/data/home'
+      import type { Parametros } from '~/data/home'
+
       export default Vue.extend({
         data(){
           return{
             oficinasData:  [],
             oficina_id: 0,
-            map: null,
+            map: {} as GoogleMap,
             lat: -34.6613414 ,
-            lng: -58.3880266
+            lng: -58.3880266,
+            parametros: undefined as Parametros | undefined
           }
         },
         watch:{
@@ -69,6 +73,7 @@
           layoutPage
         },
         computed: {
+          
           message() {
             return "Blank {N}-Vue app";
           },
@@ -77,7 +82,10 @@
           }
         },
         created(){
-          this.oficinasData = oficinas.data
+          if (home.parametros !== undefined && home.parametros !== null) {
+            this.parametros = home.parametros as Parametros;
+          }
+          // this.oficinasData = oficinas.data
         },
         mounted(){
           // console.log(this.homeView)
@@ -87,7 +95,7 @@
             addMarker(map: GoogleMap, markerOptions: MarkerOptions): Marker {
                 return this.map.addMarker(markerOptions);
             },
-            onReady({map}){
+            onReady({map}:{map: GoogleMap}){
                 this.map = map
                 this.addMarker(this.map,{position: {lat: this.lat, lng: this.lng}})
             },

@@ -4,7 +4,7 @@
       :buttonname="$t('continuar')"
       @buttonAction="onButtonAction"
     >
-      <Label row="0" class="text" marginLeft="10" marginBottom="10" text="$t('reserva.paso3.subtitulo')"  textWrap />  
+      <Label row="0" class="text" marginLeft="10" marginBottom="10" :text="$t('reserva.paso3.subtitulo')"  textWrap />  
       <Oficinas row="1" :name="'oficina_devolucion'" :data="oficinasData" v-model="oficina_id" />
     </layoutPage>
   </template>

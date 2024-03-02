@@ -2,6 +2,8 @@ import moment from 'moment';
 import { planes } from './planes';
 import cache from '~/plugins/cache';
 import { oficinas, Oficina } from "~/data/oficinas";
+import type { Coche } from '~/data/coches'
+
 
 const tax = 7
 
@@ -50,7 +52,12 @@ interface diffFechas{
 }
 
 type EstadosReserva = 'active' | 'end' | 'cancel' | 'init' | 'pending';
-type paymentType = 'card' | 'oficina' | '';
+export type paymentType = 'card' | 'oficina' | '';
+
+export interface cocheInfo{
+    plan_id: number;
+    coche_id: number;
+}
 
 export interface Reserva {
     id: number
@@ -63,17 +70,16 @@ export interface Reserva {
         oficina_id: number;
         fecha: Fecha;
     };
-    coche: {
-        plan_id: number;
-        coche_id: number;
-    };
+    coche: cocheInfo;
+    cocheSeleccionado: Coche | undefined;
     mejoras: Mejora[];
     invoice: Invoice;
-    updateInvoice: () => ItenListInvoice[];
+    // updateInvoice: () => ItenListInvoice[];
     getFechas: () => Fechas,
     getOficinas: () => Oficinas,
     getDifFechas: () => diffFechas,
-    procesarReserva: (reserva: Reserva) => void
+    procesarReserva: (reserva: Reserva) => void,
+    // createInvoice: (data: Object) => ItenListInvoice[],
 }
 
 export const reserva: Reserva = {
@@ -82,21 +88,22 @@ export const reserva: Reserva = {
     recogida: {
         oficina_id: 0,
         fecha: {
-            date: moment().format('Y-M-D'),
-            time: '01:00',
+            date:  moment().hour() >= 20 ? moment().add(1, 'day').format('YYYY-M-D') : moment().format('YYYY-M-D'),
+            time: '09:00',
         },
     },
     devolucion: {
         oficina_id: 0,
         fecha: {
-            date: moment().format('Y-M-D'),
-            time: '01:00',
+            date: moment().add(7, 'day').format('Y-M-D'),
+            time: '09:00',
         },
     },
     coche: {
         plan_id: 0,
         coche_id: 0,
     },
+    cocheSeleccionado: undefined,
     mejoras: [],
     invoice: {
         total: 0,
@@ -129,52 +136,49 @@ export const reserva: Reserva = {
             dias: fechas.devolucion.diff(fechas.recogida, 'days')
         }
     },
-    updateInvoice: function(){
-        this.invoice.list = []
-        this.invoice.plan.id = this.coche.plan_id
-        const plan = planes.data.find((e)=> e.id == this.invoice.plan.id )
+    // updateInvoice: function(){
+    //     this.invoice.list = []
 
-        this.invoice.plan.name = plan.nombre
-        this.invoice.plan.amount = plan.amount
+    //     const plan = this.cocheSeleccionado.planes.find((e)=>e.id == this.coche.plan_id)
 
-        console.log('this.invoice.plan.amount',this.invoice.plan.amount)
+    //     if(plan){
+    //          this.invoice.plan.name = plan.nombre
+    //          this.invoice.plan.amount = plan.amount
+    //     }
+
         
-        const fechas = this.getFechas()
-        this.invoice.plan.dias = fechas.devolucion.diff(fechas.recogida, 'days');
 
-        const PlanAmount = (this.invoice.plan.amount * this.invoice.plan.dias)
+    //     this.invoice.list.push({
+    //         text: `Precio tarifa Plan ${this.invoice.plan.name}`,
+    //         amount: this.invoice.plan.amount,
+    //     }) 
+
+    //     let sumaMejoras = 0
+
+    //     this.mejoras.forEach((e)=>{
+    //         sumaMejoras += e.amount
+    //         this.invoice.list.push({
+    //             text: e.name,
+    //             amount: e.amount,
+    //         })            
+    //     })
         
-        this.invoice.list.push({
-            text: `Precio tarifa Plan ${this.invoice.plan.name} por ${this.invoice.plan.dias} días`,
-            amount: PlanAmount,
-        })
+    //     this.invoice.total = ( (this.invoice.plan.amount * this.invoice.plan.dias) + sumaMejoras ) 
 
-        let sumaMejoras = 0
+    //     // this.invoice.list.push({
+    //     //     text: `Subtotal`,
+    //     //     amount: this.invoice.subtotal,
+    //     // })
 
-        this.mejoras.forEach((e)=>{
-            sumaMejoras += e.amount
-            this.invoice.list.push({
-                text: e.name,
-                amount: e.amount,
-            })            
-        })
+    //     // this.invoice.total = ( this.invoice.subtotal  + ( ( this.invoice.subtotal * tax ) / 100 ) )
 
-        this.invoice.subtotal = ( PlanAmount + sumaMejoras ) 
+    //     this.invoice.list.push({
+    //         text: `Total a pagar x ${this.invoice.plan.dias} día${this.invoice.plan.dias>1?'s':''}`,
+    //         amount: Math.round(this.invoice.total),
+    //     })
 
-        this.invoice.list.push({
-            text: `Subtotal`,
-            amount: this.invoice.subtotal,
-        })
-
-        this.invoice.total = ( this.invoice.subtotal  + ( ( this.invoice.subtotal * tax ) / 100 ) )
-
-        this.invoice.list.push({
-            text: `Total a pagar x ${this.invoice.plan.dias} días`,
-            amount: Math.round(this.invoice.total),
-        })
-
-        return this.invoice.list
-    },
+    //     return this.invoice.list
+    // },
     procesarReserva: function(reserva: Reserva){
         this.id = reserva.id
         this.status = reserva.status
@@ -184,8 +188,70 @@ export const reserva: Reserva = {
         this.mejoras = reserva.mejoras
         this.invoice = reserva.invoice
 
-        this.updateInvoice()
-    }
+        // this.updateInvoice()
+    },
+    // createInvoice(data, { cocheSeleccionado = {} }  ){
+    //     this.cocheSeleccionado = cocheSeleccionado
+    //     console.log('data',data)
+    //     this.invoice.subtotal = data.subtotal
+    //     this.invoice.plan.id = this.coche.plan_id
+       
+    //     // this.invoice.plan.dias = data.dias
+
+    //     const plan = this.cocheSeleccionado.planes.find((e)=>e.id == this.coche.plan_id)
+
+    //     if(plan){
+    //          this.invoice.plan.name = plan.nombre
+    //          this.invoice.plan.amount = plan.amount
+    //     }
+
+    //     const fechas = this.getFechas()
+    //     this.invoice.plan.dias = fechas.devolucion.diff(fechas.recogida, 'days');
+
+    //     this.invoice.mejoras = data.beneficios
+
+    //     this.invoice.total = this.invoice.subtotal
+
+    //     console.log('data',data)
+
+    //     this.mejoras.forEach(element => {
+    //         this.invoice.total += element.precio
+    //     })
+
+    //     this.invoice.list = []
+
+    //     this.invoice.list.push({
+    //         text: `Precio tarifa Plan ${this.invoice.plan.name}`,
+    //         amount: this.invoice.plan.amount,
+    //     })
+
+    //     let sumaMejoras = 0
+
+    //     this.mejoras.forEach((e)=>{
+    //         sumaMejoras += e.amount
+    //         this.invoice.list.push({
+    //             text: e.name,
+    //             amount: e.amount,
+    //         })            
+    //     })
+
+    //     // this.invoice.subtotal = ( this.invoice.subtotal + sumaMejoras ) 
+
+    //     // this.invoice.list.push({
+    //     //     text: `Subtotal`,
+    //     //     amount: this.invoice.subtotal,
+    //     // })
+        
+    //     this.invoice.total = ( this.invoice.subtotal + sumaMejoras ) 
+
+    //     this.invoice.list.push({
+    //         text: `Total a pagar x ${this.invoice.plan.dias} día${this.invoice.plan.dias>1?'s':''}`,
+    //         amount: Math.round(this.invoice.total),
+    //     })
+
+       
+    //     return this.invoice.list
+    // },
 };
 
 interface Reservas {
@@ -217,13 +283,13 @@ export const Reservas: Reservas = {
 };
 
 export function restaurarReserva() {
-    reserva.recogida.oficina_id = 0;
-    reserva.recogida.fecha.date = moment().format('Y-M-D');
-    reserva.recogida.fecha.time = '01:00';
+    // reserva.recogida.oficina_id = 0;
+    // reserva.recogida.fecha.date = moment().format('Y-M-D');
+    // reserva.recogida.fecha.time = '09:00';
 
-    reserva.devolucion.oficina_id = 0;
-    reserva.devolucion.fecha.date = moment().format('Y-M-D');
-    reserva.devolucion.fecha.time = '01:00';
+    // reserva.devolucion.oficina_id = 0;
+    // reserva.devolucion.fecha.date = moment().format('Y-M-D');
+    // reserva.devolucion.fecha.time = '09:00';
 
     reserva.coche.plan_id = 0;
     reserva.coche.coche_id = 0;
@@ -243,3 +309,25 @@ export function restaurarReserva() {
         payment_type: ''
     }
 }
+
+
+interface Beneficio {
+    beneficio: string;
+    monto: number;
+  }
+  
+  export interface ReservaData {
+    subtotal: number;
+    total: number;
+    dias: string;
+    start: string;
+    end: string;
+    idoficina: string;
+    iddevolucion: string;
+    beneficios_seleccionados: Beneficio[];
+  }
+  
+  export interface ReservaResponse {
+    status: string;
+    data: ReservaData;
+  }

@@ -6,7 +6,7 @@
           </GridLayout>
            <StackLayout padding="10">
              <GridLayout 
-              v-for="(item, key) in items" 
+              v-for="(item, key) in itemsData" 
               :key="`itemtable-${key}`" 
               columns="*,auto" 
               padding=""
@@ -37,6 +37,14 @@
   <script lang="ts">
     import Vue from "nativescript-vue";
     import { planes } from '~/data/planes'
+    import { reserva } from '~/data/reserva'
+    /**
+     * TODO mover interface
+     */
+    interface Table {
+      text: string;
+      amount: string | number;
+    }
     export default Vue.extend({
         props:{
             plan: {
@@ -44,8 +52,10 @@
                 default: {}
             },
             items: {
-                type: Array|Object,
-                default: []
+                type: Array,
+                default(){
+                  return []
+                }
             }
             // coche: {
             //     type: Object,
@@ -54,15 +64,20 @@
         },
       data(){
         return{
+          // reservaInvoice: reserva.invoice
+          itemsData: this.items as Table[]
         }
       },
       created(){
+      },
+      mounted(){
+        // console.log('reservaInvoice',this.reservaInvoice)
       },
       computed: {
         
       },
       methods: {
-        moneda(value) {
+        moneda(value: any) {
             value += '';
             var x = value.split('.');
             var x1 = x[0];
